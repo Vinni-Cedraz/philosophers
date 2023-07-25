@@ -1,7 +1,7 @@
 // Your(s) program(s) should take the following arguments:
 
 // number_of_philosophers time_to_die time_to_eat time_to_sleep
-// [number_of_times_each_philosopher_must_eat]
+// 
 
 // 1◦ number_of_philosophers: The number of philosophers and also the number of forks.
 
@@ -27,14 +27,18 @@
 // philosopher number N - 1 and philosopher number N + 1.
 
 /* Allowed functions:
-* memset, printf, malloc, free, write, usleep, gettimeofday, pthread_create,
-* pthread_detach, pthread_join, pthread_mutex_init, pthread_mutex_destroy,
-* pthread_mutex_lock, pthread_mutex_unlock */
+ * memset, printf, malloc, free, write, usleep, gettimeofday, pthread_create,
+ * pthread_detach, pthread_join, pthread_mutex_init, pthread_mutex_destroy,
+ * pthread_mutex_lock, pthread_mutex_unlock */
 
 #include "libft_gnl/libft.h"
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
+
+#define TRUE 1
+#define FALSE 0
 
 typedef enum
 {
@@ -77,6 +81,33 @@ static t_meta_data		*create_meta_data(char **av, int ac);
 static void				init_table(t_meta_data *d, char **av, int ac);
 static void				create_thinkers(t_meta_data *d);
 static void				print_thinkers(t_meta_data *d);
+static void				print_state(t_philosopher thinker,
+							long timestamp_in_ms);
+static long long		get_time_in_ms(void);
+
+long long	*get_start_time(void)
+{
+	struct timeval		aux;
+	static int			call_counter;
+	static long long	start_time;
+
+	if (++call_counter == 1)
+	{
+		gettimeofday(&aux, NULL);
+		start_time = (long long)aux.tv_sec * 1000000 + (long long)aux.tv_usec;
+	}
+	return (&start_time);
+}
+
+long long	*get_current_time(void)
+{
+	struct timeval		aux;
+	static long long	current_time;
+
+	gettimeofday(&aux, NULL);
+	current_time = (long long)aux.tv_sec * 1000000 + (long long)aux.tv_usec;
+	return (&current_time);
+}
 
 int	main(int ac, char **av)
 {
@@ -99,11 +130,22 @@ void	create_thinkers(t_meta_data *d)
 	while (++i < d->table->nb_of_philos)
 	{
 		thinker[i].id = i + 1;
-		thinker[i].alive = 1;
+		thinker[i].alive = TRUE;
 		thinker[i].has_two_forks = 0;
 		thinker[i].state = THINK;
 	}
 	print_thinkers(d);
+	i = -1;
+	while (++i < d->table->nb_of_philos)
+	{
+		usleep(100);
+		print_state(thinker[i], get_time_in_ms());
+	}
+}
+
+long long	get_time_in_ms(void)
+{
+	return (*get_current_time() - *get_start_time());
 }
 
 // print the attributes of each philosopher
@@ -121,18 +163,19 @@ static void	print_thinkers(t_meta_data *d)
 		printf("alive %d\n", thinker[i].alive);
 		printf("has_two_forks %d\n", thinker[i].has_two_forks);
 	}
+	printf("\n\n\n\n\n");
 }
 
-void	print_state(t_philosopher thinker, int timestamp_in_ms)
+void	print_state(t_philosopher thinker, long timestamp_in_ms)
 {
 	if (thinker.state == THINK)
-		printf("%d %d is thinking\n", timestamp_in_ms, thinker.id);
+		printf("%ldms %d is thinking\n", timestamp_in_ms, thinker.id);
 	else if (thinker.state == EAT)
-		printf("%d %d is eating\n", timestamp_in_ms, thinker.id);
+		printf("%ldms %d is eating\n", timestamp_in_ms, thinker.id);
 	else if (thinker.state == SLEEP)
-		printf("%d %d is sleeping\n", timestamp_in_ms, thinker.id);
+		printf("%ldms %d is sleeping\n", timestamp_in_ms, thinker.id);
 	else if (thinker.state == DIE)
-		printf("%d %d died\n", timestamp_in_ms, thinker.id);
+		printf("%ldms %d died\n", timestamp_in_ms, thinker.id);
 }
 
 t_meta_data	*create_meta_data(char **av, int ac)
@@ -194,10 +237,10 @@ static unsigned short	invalid_arg(int ac)
 	if (ac < 5 || ac > 6)
 	{
 		printf("Error: wrong number of arguments\n");
-                printf("Usage: [number of philosophers] [time to die] [time to "
-                       "eat] [time to sleep] and optional -> [number of times "
-                       "each philosopher must eat]\n");
-                return (1);
+		printf("Usage: [number of philosophers] [time to die] [time to "
+				"eat] [time to sleep] and optional -> [number of times "
+				"each philosopher must eat]\n");
+		return (TRUE);
 	}
-	return (0);
+	return (FALSE);
 }
