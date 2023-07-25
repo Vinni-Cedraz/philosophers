@@ -1,16 +1,20 @@
 // Your(s) program(s) should take the following arguments:
-// number_of_philosophers time_to_die time_to_eat time_to_sleep
-// [number_of_times_each_philosopher_must_eat] ◦ number_of_philosophers: The
-// number of philosophers and also the number of forks. ◦ time_to_die (in
-// milliseconds):
 
-// If a philosopher didn’t start eating time_to_die milliseconds
+// number_of_philosophers time_to_die time_to_eat time_to_sleep
+// [number_of_times_each_philosopher_must_eat]
+
+// 1◦ number_of_philosophers: The number of philosophers and also the number of forks.
+
+// 2◦ time_to_die (in milliseconds): If a philosopher didn’t start eating time_to_die milliseconds
 // since the beginning of their last meal or the beginning of the simulation,
 // they die.
-// ◦ time_to_eat (in milliseconds): The time it takes for a
+
+// 3◦ time_to_eat (in milliseconds): The time it takes for a
 // philosopher to eat. During that time, they will need to hold two forks.
-// ◦ time_to_sleep (in milliseconds): The time a philosopher will spend sleeping.
-// ◦ number_of_times_each_philosopher_must_eat (optional argument): If all
+
+// 4◦ time_to_sleep (in milliseconds): The time a philosopher will spend sleeping.
+
+// 5◦ number_of_times_each_philosopher_must_eat (optional argument): If all
 // philosophers have eaten at least number_of_times_each_philosopher_must_eat
 // times, the simulation stops.
 
@@ -69,7 +73,7 @@ typedef struct s_meta_data
 static void				print_table(t_meta_data *d);
 static unsigned short	invalid_arg(int ac);
 static void				free_everything(t_meta_data *data);
-static t_meta_data		*allocate_everything(char **av, int ac);
+static t_meta_data		*create_meta_data(char **av, int ac);
 static void				init_table(t_meta_data *d, char **av, int ac);
 static void				create_thinkers(t_meta_data *d);
 static void				print_thinkers(t_meta_data *d);
@@ -80,7 +84,7 @@ int	main(int ac, char **av)
 
 	if (invalid_arg(ac))
 		return (1);
-	d = allocate_everything(av, ac);
+	d = create_meta_data(av, ac);
 	create_thinkers(d);
 	free_everything(d);
 }
@@ -131,7 +135,7 @@ void	print_state(t_philosopher thinker, int timestamp_in_ms)
 		printf("%d %d died\n", timestamp_in_ms, thinker.id);
 }
 
-t_meta_data	*allocate_everything(char **av, int ac)
+t_meta_data	*create_meta_data(char **av, int ac)
 {
 	t_meta_data	*d;
 	t_table		*table;
@@ -190,7 +194,10 @@ static unsigned short	invalid_arg(int ac)
 	if (ac < 5 || ac > 6)
 	{
 		printf("Error: wrong number of arguments\n");
-		return (1);
+                printf("Usage: [number of philosophers] [time to die] [time to "
+                       "eat] [time to sleep] and optional -> [number of times "
+                       "each philosopher must eat]\n");
+                return (1);
 	}
 	return (0);
 }
