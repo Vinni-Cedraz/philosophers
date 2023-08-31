@@ -12,15 +12,16 @@
 
 #include "philo.h"
 
-static inline long long	*get_start_time(void);
+static inline long long	get_milissecs(struct timeval *aux);
+
 static inline long long	*get_current_time(void);
 
-long long	get_time_in_ms(void)
+inline long long	get_time_in_ms(void)
 {
 	return (*get_current_time() - *get_start_time());
 }
 
-static inline long long	*get_start_time(void)
+inline long long	*get_start_time(void)
 {
 	struct timeval		aux;
 	static int			call_counter;
@@ -29,7 +30,7 @@ static inline long long	*get_start_time(void)
 	if (++call_counter == 1)
 	{
 		gettimeofday(&aux, NULL);
-		start_time = (long long)aux.tv_sec * 1000000 + (long long)aux.tv_usec;
+		start_time = get_milissecs(&aux);
 	}
 	return (&start_time);
 }
@@ -40,6 +41,11 @@ static inline long long	*get_current_time(void)
 	static long long	current_time;
 
 	gettimeofday(&aux, NULL);
-	current_time = (long long)aux.tv_sec * 1000000 + (long long)aux.tv_usec;
+	current_time = get_milissecs(&aux);
 	return (&current_time);
+}
+
+static inline long long	get_milissecs(struct timeval *aux)
+{
+	return ((long long)aux->tv_sec * 1000 + (long long)aux->tv_usec / 1000);
 }

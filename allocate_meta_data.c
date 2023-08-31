@@ -24,8 +24,8 @@ t_meta_data	*allocate_meta_data(char **av, int ac)
 	d->table = malloc(sizeof(t_table));
 	table = d->table;
 	init_table(d, av, ac);
-	d->philosophers = malloc(sizeof(t_philosopher) * d->table->nb_of_philos);
 	d->forks = malloc(sizeof(pthread_mutex_t) * d->table->nb_of_philos);
+	d->philosophers = malloc(sizeof(t_philosopher) * d->table->nb_of_philos);
 	i = -1;
 	while (++i < d->table->nb_of_philos)
 		pthread_mutex_init(&d->forks[i], NULL);

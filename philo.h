@@ -26,6 +26,9 @@
 # define USAGE_MSG "s] [time to die] [time to eat] [time to sleep] and"
 # define OPT_USAGE "optional -> [number of times each philosopher must eat]\n"
 
+typedef struct s_tab	t_table;
+typedef struct s_philo	t_philosopher;
+
 typedef enum e_action
 {
 	THINK,
@@ -33,24 +36,6 @@ typedef enum e_action
 	SLEEP,
 	DIE,
 }						t_action;
-
-typedef struct s_philosopher
-{
-	unsigned short		id;
-	unsigned short		alive;
-	unsigned short		has_two_forks;
-	t_action			state;
-	pthread_mutex_t		*using_forks;
-}						t_philosopher;
-
-typedef struct s_table
-{
-	unsigned short		nb_of_philos;
-	unsigned short		time_to_die;
-	unsigned short		time_to_eat;
-	unsigned short		time_to_sleep;
-	short				times_each_must_eat;
-}						t_table;
 
 typedef struct s_meta_data
 {
@@ -60,13 +45,31 @@ typedef struct s_meta_data
 	int					start_time;
 }						t_meta_data;
 
-void				debug_print_table(t_meta_data *d);
-unsigned short		invalid_arg(int ac);
-t_meta_data			*allocate_meta_data(char **av, int ac);
-void				create_thinkers(t_meta_data *d);
-void				debug_print_thinkers(t_meta_data *d);
-void				output_stream(t_philosopher thinker, long timestamp);
-long long			get_time_in_ms(void);
-void				free_everything(t_meta_data *data);
+typedef struct s_tab
+{
+	unsigned short		nb_of_philos;
+	unsigned short		time_to_die;
+	unsigned short		time_to_eat;
+	unsigned short		time_to_sleep;
+	short				times_each_must_eat;
+}						t_table;
+
+typedef struct s_philo
+{
+	unsigned short		id;
+	unsigned short		alive;
+	unsigned short		has_two_forks;
+	t_action			state;
+	pthread_mutex_t		*using_forks;
+}						t_philosopher;
+
+long long				*get_start_time(void);
+void					debug_print_table(t_meta_data *d);
+unsigned short			invalid_arg(int ac);
+t_meta_data				*allocate_meta_data(char **av, int ac);
+void					create_thinkers(t_meta_data *d);
+void					output_stream(t_philosopher thinker, long timestamp);
+long long				get_time_in_ms(void);
+void					free_everything(t_meta_data *data);
 
 #endif

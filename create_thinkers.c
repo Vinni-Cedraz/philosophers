@@ -25,12 +25,13 @@ void	create_thinkers(t_meta_data *d)
 		thinkers[i].alive = TRUE;
 		thinkers[i].has_two_forks = 0;
 		thinkers[i].state = THINK;
+		thinkers[i].using_forks = NULL;
 	}
-	debug_print_thinkers(d);
 	i = -1;
+	get_start_time();
 	while (++i < d->table->nb_of_philos)
 	{
-		usleep(100);
+		usleep(d->table->time_to_eat * 1000);
 		output_stream(thinkers[i], get_time_in_ms());
 	}
 }
