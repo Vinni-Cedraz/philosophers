@@ -14,7 +14,7 @@
 
 void	output_stream(t_philosopher thinker, long timestamp_in_ms)
 {
-	pthread_mutex_lock(&thinker.stdout_mutex);
+	pthread_mutex_lock(&get_table()->stdout_mutex);
 	if (thinker.state == THINK)
 		printf("%ldms %d is thinking\n", timestamp_in_ms, thinker.id);
 	else if (thinker.state == EAT)
@@ -23,7 +23,7 @@ void	output_stream(t_philosopher thinker, long timestamp_in_ms)
 		printf("%ldms %d is sleeping\n", timestamp_in_ms, thinker.id);
 	else if (thinker.state == DEAD)
 		printf("%ldms %d died\n", timestamp_in_ms, thinker.id);
-	pthread_mutex_unlock(&thinker.stdout_mutex);
+	pthread_mutex_unlock(&get_table()->stdout_mutex);
 }
 
 unsigned short	invalid_arg(int ac)

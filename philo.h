@@ -52,6 +52,7 @@ typedef struct s_tab
 	unsigned short		time_to_sleep;
 	pthread_mutex_t		*forks;
 	short				times_each_must_eat;
+	pthread_mutex_t		stdout_mutex;
 }						t_table;
 
 typedef struct s_philo
@@ -61,7 +62,6 @@ typedef struct s_philo
 	t_action			state;
 	unsigned short		last_meal_time;
 	unsigned short		nb_of_meals;
-	pthread_mutex_t		stdout_mutex;
 }						t_philosopher;
 
 _Atomic long long 		*get_start_time(void);
