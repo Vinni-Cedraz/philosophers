@@ -19,16 +19,22 @@ void	*monitor_the_thinkers(void *thinkers)
 {
 	t_philosopher	*this_thinker;
 	int				times_each_must_eat;
+	int				death_time;
 
+	death_time = get_table()->time_to_die;
 	times_each_must_eat = get_table()->times_each_must_eat;
 	while (TRUE)
 	{
-		this_thinker = (t_philosopher *)((t_node *)(thinkers))->content;
+		this_thinker = ((t_node *)(thinkers))->philosopher;
+		if (get_time_in_ms() - this_thinker->last_meal_time >= death_time)
+		{
+			this_thinker->state = DEAD;
+			output_state(*this_thinker, get_time_in_ms());
+			return (terminate_all_threads());
+		}
 		if (this_thinker->state == DEAD)
 		{
-			pthread_mutex_lock(&get_table()->stdout_mutex);
 			output_state(*this_thinker, get_time_in_ms());
-			pthread_mutex_unlock(&get_table()->stdout_mutex);
 			return (NULL);
 		}
 		else if (this_thinker->nb_of_meals == times_each_must_eat)
@@ -49,7 +55,7 @@ static inline short	monitor_satisfaction(t_node *thinkers)
 	head = thinkers->next;
 	while (head != thinkers)
 	{
-		this_thinker = (t_philosopher *)head->content;
+		this_thinker = head->philosopher;
 		if (this_thinker->state != SATISFIED)
 			return (FALSE);
 		head = head->next;
@@ -57,7 +63,6 @@ static inline short	monitor_satisfaction(t_node *thinkers)
 	return (TRUE);
 }
 
-// force pthread_detach on all threads of the d->threads array
 static inline void	*terminate_all_threads(void)
 {
 	int	i;

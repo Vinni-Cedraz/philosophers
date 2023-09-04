@@ -21,7 +21,7 @@ void	*each_philosopher_actions(void *this_philo)
 	t_philosopher	*philo;
 
 	philo = (t_philosopher *)this_philo;
-	while (TRUE)
+	while (!get_data()->detached_threads)
 	{
 		output_state(*philo, get_time_in_ms());
 		if (philo->state == THINK)
@@ -31,8 +31,9 @@ void	*each_philosopher_actions(void *this_philo)
 		else if (philo->state == SLEEP)
 			philosopher_sleep(philo);
 		else if (philo->state == DEAD)
-			return (NULL);
+			break ;
 	}
+	return (NULL);
 }
 
 static inline void	philosopher_think(t_philosopher *philo)
