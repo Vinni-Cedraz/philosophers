@@ -1,0 +1,57 @@
+nb_of_philos 10
+time_to_die 100
+time_to_eat 100
+time_to_sleep 100
+times_each_must_eat 2
+2ms 0 is thinking
+2ms 0 is eating
+3ms 1 is thinking
+4ms 2 is thinking
+4ms 2 is eating
+6ms 3 is thinking
+7ms 4 is thinking
+7ms 4 is eating
+8ms 5 is thinking
+9ms 6 is thinking
+9ms 6 is eating
+10ms 7 is thinking
+11ms 8 is thinking
+11ms 8 is eating
+13ms 9 is thinking
+102ms 0 is sleeping
+105ms 2 is sleeping
+105ms 1 is eating
+107ms 4 is sleeping
+107ms 3 is eating
+109ms 6 is sleeping
+109ms 5 is eating
+112ms 8 is sleeping
+112ms 7 is eating
+112ms 9 is eating
+202ms 0 is thinking
+205ms 2 is thinking
+205ms 1 is sleeping
+207ms 4 is thinking
+207ms 2 is eating
+207ms 3 is sleeping
+209ms 6 is thinking
+209ms 5 is sleeping
+209ms 4 is eating
+212ms 8 is thinking
+212ms 0 is eating
+212ms 8 is eating
+212ms 9 is sleeping
+212ms 7 is sleeping
+212ms 6 is eating
+305ms 1 is thinking
+307ms 3 is thinking
+310ms 5 is thinking
+310ms 3 is eating
+312ms 8 is sleeping
+312ms 1 is eating
+312ms 7 is thinking
+312ms 5 is eating
+312ms 7 is eating
+312ms 9 is thinking
+312ms 0 is sleeping
+312ms 9 is eating

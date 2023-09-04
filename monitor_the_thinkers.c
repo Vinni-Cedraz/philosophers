@@ -12,15 +12,14 @@
 
 #include "philo.h"
 
-static void			*all_are_satisfied(void);
+static short		monitor_satisfaction(t_node *thinkers);
+static void			*terminate_all_threads(void);
 
 void	*monitor_the_thinkers(void *thinkers)
 {
 	t_philosopher	*this_thinker;
 	int				times_each_must_eat;
-	int				satisfied_philos;
 
-	satisfied_philos = 0;
 	times_each_must_eat = get_table()->times_each_must_eat;
 	while (TRUE)
 	{
@@ -28,24 +27,44 @@ void	*monitor_the_thinkers(void *thinkers)
 		if (this_thinker->state == DEAD)
 		{
 			pthread_mutex_lock(&get_table()->stdout_mutex);
-			output_stream(*this_thinker, get_time_in_ms());
+			output_state(*this_thinker, get_time_in_ms());
 			pthread_mutex_unlock(&get_table()->stdout_mutex);
 			return (NULL);
 		}
 		else if (this_thinker->nb_of_meals == times_each_must_eat)
 		{
 			this_thinker->state = SATISFIED;
-			if (++satisfied_philos == get_table()->nb_of_philos)
-				return (all_are_satisfied());
+			if (monitor_satisfaction(thinkers))
+				return (terminate_all_threads());
 		}
 		thinkers = ((t_node *)(thinkers))->next;
 	}
 }
 
-static inline void	*all_are_satisfied(void)
+static inline short	monitor_satisfaction(t_node *thinkers)
 {
-	pthread_mutex_lock(&get_table()->stdout_mutex);
-	get_data()->all_are_satisfied = TRUE;
-	pthread_mutex_unlock(&get_table()->stdout_mutex);
+	t_philosopher	*this_thinker;
+	t_node			*head;
+
+	head = thinkers->next;
+	while (head != thinkers)
+	{
+		this_thinker = (t_philosopher *)head->content;
+		if (this_thinker->state != SATISFIED)
+			return (FALSE);
+		head = head->next;
+	}
+	return (TRUE);
+}
+
+// force pthread_detach on all threads of the d->threads array
+static inline void	*terminate_all_threads(void)
+{
+	int	i;
+
+	i = -1;
+	while (++i < get_table()->nb_of_philos)
+		pthread_detach(get_data()->threads[i]);
+	get_data()->detached_threads = TRUE;
 	return (NULL);
 }

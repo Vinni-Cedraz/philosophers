@@ -45,7 +45,8 @@ typedef struct s_meta_data
 	t_philosopher		*philosophers;
 	t_node				*thinkers_circle;
 	int					start_time;
-	short				all_are_satisfied;
+	pthread_t			*threads;
+	_Atomic short		detached_threads;
 }						t_meta_data;
 
 typedef struct s_tab
@@ -63,7 +64,7 @@ typedef struct s_philo
 {
 	unsigned short			id;
 	_Atomic t_action		state;
-	_Atomic unsigned short	last_meal_time;
+	_Atomic long long		last_meal_time;
 	_Atomic unsigned short	nb_of_meals;
 }						t_philosopher;
 
@@ -72,11 +73,12 @@ void					debug_print_table(t_meta_data *d);
 unsigned short			invalid_arg(int ac);
 t_meta_data				*allocate_meta_data(char **av, int ac);
 void					create_the_thinkers(t_meta_data *d);
-void					output_stream(t_philosopher thinker, long timestamp);
+void					output_state(t_philosopher thinker, long timestamp);
 long long				get_time_in_ms(void);
 void					free_everything(t_meta_data *data);
 t_table					*get_table(void);
 t_meta_data				*get_data(void);
 void					*each_philosopher_actions(void *this_philo);
 void					*monitor_the_thinkers(void *thinkers);
+void					debug_print_thinkers(t_meta_data *d);
 #endif

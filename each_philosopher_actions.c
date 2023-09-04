@@ -23,15 +23,7 @@ void	*each_philosopher_actions(void *this_philo)
 	philo = (t_philosopher *)this_philo;
 	while (TRUE)
 	{
-		output_stream(*philo, get_time_in_ms());
-		pthread_mutex_lock(&get_table()->stdout_mutex);
-		if (get_data()->all_are_satisfied)
-		{
-			printf("All philosophers ate %d times\n",
-				get_table()->times_each_must_eat);
-			return (NULL);
-		}
-		pthread_mutex_unlock(&get_table()->stdout_mutex);
+		output_state(*philo, get_time_in_ms());
 		if (philo->state == THINK)
 			philosopher_think(philo);
 		else if (philo->state == EAT)
@@ -71,6 +63,7 @@ static inline void	philosopher_eat(t_philosopher *philo)
 
 	right_fork_idx = philo->id;
 	left_fork_idx = philo->id - 1;
+	philo->last_meal_time = get_time_in_ms();
 	usleep(get_table()->time_to_eat * 1000);
 	if (-1 == left_fork_idx)
 	{

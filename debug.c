@@ -12,6 +12,26 @@
 
 #include "philo.h"
 
+#define RED "\033[0;31m"
+#define DEF_COLOR "\033[0m"
+
+static void	debug_output_state(t_philosopher thinker, long timestamp_in_ms)
+{
+	pthread_mutex_lock(&get_table()->stdout_mutex);
+	if (thinker.state == THINK)
+		printf(RED "%ldms %d is thinking\n" DEF_COLOR, timestamp_in_ms,
+			thinker.id);
+	else if (thinker.state == EAT)
+		printf(RED "%ldms %d is eating\n" DEF_COLOR, timestamp_in_ms,
+			thinker.id);
+	else if (thinker.state == SLEEP)
+		printf(RED "%ldms %d is sleeping\n" DEF_COLOR, timestamp_in_ms,
+			thinker.id);
+	else if (thinker.state == DEAD)
+		printf(RED "%ldms %d died\n" DEF_COLOR, timestamp_in_ms, thinker.id);
+	pthread_mutex_unlock(&get_table()->stdout_mutex);
+}
+
 // print the attributes of each philosopher
 void	debug_print_thinkers(t_meta_data *d)
 {
@@ -24,7 +44,9 @@ void	debug_print_thinkers(t_meta_data *d)
 	{
 		printf("thinker %d\n", i + 1);
 		printf("id %d\n", thinker[i].id);
-		printf("id %d has eaten %d times\n", thinker[i].id, thinker[i].nb_of_meals);
+		debug_output_state(thinker[i], get_time_in_ms());
+		printf("id %d has eaten %d times\n", thinker[i].id,
+			thinker[i].nb_of_meals);
 	}
 	printf("\n\n\n\n\n");
 }

@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void	output_stream(t_philosopher thinker, long timestamp_in_ms)
+void	output_state(t_philosopher thinker, long timestamp_in_ms)
 {
 	pthread_mutex_lock(&get_table()->stdout_mutex);
 	if (thinker.state == THINK)

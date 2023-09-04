@@ -18,13 +18,13 @@ static void					*init_circle(t_philosopher *thinkers);
 void	create_the_thinkers(t_meta_data *d)
 {
 	int				i;
-	pthread_t		*threads;
 	t_philosopher	*thinkers;
+	pthread_t		*threads;
 	t_philosopher	*this_thinker;
 
 	i = -1;
 	thinkers = d->philosophers;
-	threads = malloc(sizeof(pthread_t) * d->table->nb_of_philos);
+	threads = d->threads;
 	get_start_time();
 	while (++i < d->table->nb_of_philos)
 	{
@@ -33,8 +33,6 @@ void	create_the_thinkers(t_meta_data *d)
 	}
 	i = -1;
 	monitor_the_thinkers(init_circle(thinkers));
-	while (++i < d->table->nb_of_philos)
-		pthread_join(threads[i], NULL);
 }
 
 static inline t_philosopher	*init_this_thinker(t_philosopher *this_thinker)
@@ -44,6 +42,7 @@ static inline t_philosopher	*init_this_thinker(t_philosopher *this_thinker)
 	this_thinker->id = call_counter++;
 	this_thinker->nb_of_meals = 0;
 	this_thinker->state = THINK;
+	this_thinker->last_meal_time = *get_start_time();
 	return (this_thinker);
 }
 
