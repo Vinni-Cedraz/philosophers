@@ -19,6 +19,6 @@ int	main(int ac, char **av)
 	if (invalid_arg(ac))
 		return (1);
 	d = allocate_meta_data(av, ac);
-	create_thinkers(d);
+	create_the_thinkers(d);
 	free_everything(d);
 }

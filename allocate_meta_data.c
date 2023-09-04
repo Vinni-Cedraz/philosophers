@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_meta_data.c                                 :+:      :+:    :+:   */
+/*   allocate_meta_data.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 08:43:58 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/08/31 08:44:11 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/09/04 09:46:48 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	free_everything(t_meta_data *data)
 		pthread_mutex_destroy(&data->table->forks[i]);
 	free(data->table->forks);
 	free(data->philosophers);
+	ft_lstcircular_free(&data->thinkers_circle);
 }
 
 t_meta_data	*get_data(void)

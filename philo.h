@@ -6,7 +6,7 @@
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 08:33:54 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/08/31 08:47:46 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/09/04 11:53:14 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_H
 
 # include "libft_gnl/libft.h"
+# include "libft_gnl/libft_bonus.h"
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -35,13 +36,16 @@ typedef enum e_action
 	EAT,
 	SLEEP,
 	DEAD,
+	SATISFIED
 }						t_action;
 
 typedef struct s_meta_data
 {
 	t_table				*table;
 	t_philosopher		*philosophers;
+	t_node				*thinkers_circle;
 	int					start_time;
+	short				all_are_satisfied;
 }						t_meta_data;
 
 typedef struct s_tab
@@ -51,27 +55,28 @@ typedef struct s_tab
 	unsigned short		time_to_eat;
 	unsigned short		time_to_sleep;
 	pthread_mutex_t		*forks;
-	short				times_each_must_eat;
+	_Atomic short		times_each_must_eat;
 	pthread_mutex_t		stdout_mutex;
 }						t_table;
 
 typedef struct s_philo
 {
-	unsigned short		id;
-	unsigned short		alive;
-	t_action			state;
-	unsigned short		last_meal_time;
-	unsigned short		nb_of_meals;
+	unsigned short			id;
+	_Atomic t_action		state;
+	_Atomic unsigned short	last_meal_time;
+	_Atomic unsigned short	nb_of_meals;
 }						t_philosopher;
 
-_Atomic long long 		*get_start_time(void);
+_Atomic long long		*get_start_time(void);
 void					debug_print_table(t_meta_data *d);
 unsigned short			invalid_arg(int ac);
 t_meta_data				*allocate_meta_data(char **av, int ac);
-void					create_thinkers(t_meta_data *d);
+void					create_the_thinkers(t_meta_data *d);
 void					output_stream(t_philosopher thinker, long timestamp);
 long long				get_time_in_ms(void);
 void					free_everything(t_meta_data *data);
 t_table					*get_table(void);
 t_meta_data				*get_data(void);
+void					*each_philosopher_actions(void *this_philo);
+void					*monitor_the_thinkers(void *thinkers);
 #endif

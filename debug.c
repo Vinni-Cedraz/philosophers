@@ -24,7 +24,7 @@ void	debug_print_thinkers(t_meta_data *d)
 	{
 		printf("thinker %d\n", i + 1);
 		printf("id %d\n", thinker[i].id);
-		printf("alive %d\n", thinker[i].alive);
+		printf("id %d has eaten %d times\n", thinker[i].id, thinker[i].nb_of_meals);
 	}
 	printf("\n\n\n\n\n");
 }

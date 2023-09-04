@@ -1,6 +1,6 @@
 all:
-	make -C libft_gnl --no-print-directory
-	cc -g3 -lpthread -Wall -Wextra -Werror *.c libft_gnl/libft.a  -o philo
+	make bonus -C libft_gnl --no-print-directory
+	cc -O3 -lpthread -Wall -Wextra -Werror *.c libft_gnl/libft.a  -o philo
 
 clean:
 	rm -f philo
