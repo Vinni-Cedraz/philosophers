@@ -25,7 +25,6 @@ void	debug_print_thinkers(t_meta_data *d)
 		printf("thinker %d\n", i + 1);
 		printf("id %d\n", thinker[i].id);
 		printf("alive %d\n", thinker[i].alive);
-		printf("has_two_forks %d\n", thinker[i].has_two_forks);
 	}
 	printf("\n\n\n\n\n");
 }

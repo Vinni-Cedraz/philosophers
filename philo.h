@@ -34,14 +34,13 @@ typedef enum e_action
 	THINK,
 	EAT,
 	SLEEP,
-	DIE,
+	DEAD,
 }						t_action;
 
 typedef struct s_meta_data
 {
 	t_table				*table;
 	t_philosopher		*philosophers;
-	pthread_mutex_t		*forks;
 	int					start_time;
 }						t_meta_data;
 
@@ -51,6 +50,7 @@ typedef struct s_tab
 	unsigned short		time_to_die;
 	unsigned short		time_to_eat;
 	unsigned short		time_to_sleep;
+	pthread_mutex_t		*forks;
 	short				times_each_must_eat;
 }						t_table;
 
@@ -58,12 +58,13 @@ typedef struct s_philo
 {
 	unsigned short		id;
 	unsigned short		alive;
-	unsigned short		has_two_forks;
 	t_action			state;
-	pthread_mutex_t		*using_forks;
+	unsigned short		last_meal_time;
+	unsigned short		nb_of_meals;
+	pthread_mutex_t		stdout_mutex;
 }						t_philosopher;
 
-long long				*get_start_time(void);
+_Atomic long long 		*get_start_time(void);
 void					debug_print_table(t_meta_data *d);
 unsigned short			invalid_arg(int ac);
 t_meta_data				*allocate_meta_data(char **av, int ac);
@@ -71,5 +72,6 @@ void					create_thinkers(t_meta_data *d);
 void					output_stream(t_philosopher thinker, long timestamp);
 long long				get_time_in_ms(void);
 void					free_everything(t_meta_data *data);
-
+t_table					*get_table(void);
+t_meta_data				*get_data(void);
 #endif

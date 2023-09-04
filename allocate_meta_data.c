@@ -16,19 +16,17 @@ static void	init_table(t_meta_data *d, char **av, int ac);
 
 t_meta_data	*allocate_meta_data(char **av, int ac)
 {
-	t_meta_data	*d;
-	t_table		*table;
 	int			i;
+	t_meta_data	*d;
 
-	d = ft_calloc(sizeof(t_meta_data), 1);
-	d->table = malloc(sizeof(t_table));
-	table = d->table;
+	d = get_data();
+	d->table = get_table();
 	init_table(d, av, ac);
-	d->forks = malloc(sizeof(pthread_mutex_t) * d->table->nb_of_philos);
 	d->philosophers = malloc(sizeof(t_philosopher) * d->table->nb_of_philos);
+	d->table->forks = malloc(sizeof(pthread_mutex_t) * d->table->nb_of_philos);
 	i = -1;
 	while (++i < d->table->nb_of_philos)
-		pthread_mutex_init(&d->forks[i], NULL);
+		pthread_mutex_init(&d->table->forks[i], NULL);
 	return (d);
 }
 
@@ -51,9 +49,21 @@ void	free_everything(t_meta_data *data)
 
 	i = -1;
 	while (++i < data->table->nb_of_philos)
-		pthread_mutex_destroy(&data->forks[i]);
-	free(data->forks);
+		pthread_mutex_destroy(&data->table->forks[i]);
+	free(data->table->forks);
 	free(data->philosophers);
-	free(data->table);
-	free(data);
+}
+
+t_meta_data	*get_data(void)
+{
+	static t_meta_data	d;
+
+	return (&d);
+}
+
+t_table	*get_table(void)
+{
+	static t_table	table;
+
+	return (&table);
 }

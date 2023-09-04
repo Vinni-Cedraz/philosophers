@@ -14,18 +14,18 @@
 
 static inline long long	get_milissecs(struct timeval *aux);
 
-static inline long long	*get_current_time(void);
+static inline _Atomic long long	*get_current_time(void);
 
 inline long long	get_time_in_ms(void)
 {
 	return (*get_current_time() - *get_start_time());
 }
 
-inline long long	*get_start_time(void)
+inline _Atomic long long *get_start_time(void)
 {
-	struct timeval		aux;
-	static int			call_counter;
-	static long long	start_time;
+	struct timeval	aux;
+	_Atomic static int call_counter;
+	_Atomic static long long start_time;
 
 	if (++call_counter == 1)
 	{
@@ -35,10 +35,10 @@ inline long long	*get_start_time(void)
 	return (&start_time);
 }
 
-static inline long long	*get_current_time(void)
+static inline _Atomic long long *get_current_time(void)
 {
-	struct timeval		aux;
-	static long long	current_time;
+	struct timeval	aux;
+	_Atomic static long long current_time;
 
 	gettimeofday(&aux, NULL);
 	current_time = get_milissecs(&aux);
