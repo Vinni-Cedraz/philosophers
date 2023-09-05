@@ -45,6 +45,7 @@ static void	check_death(t_philosopher *this_thinker)
 	{
 		get_data()->stop_the_simulation = TRUE;
 		this_thinker->state = DEAD;
+		output_state(*this_thinker, get_time_in_ms());
 	}
 }
 
