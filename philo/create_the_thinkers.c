@@ -32,7 +32,8 @@ void	create_the_thinkers(t_meta_data *d)
 		pthread_create(&threads[i], 0, philo_thread_callback, this_thinker);
 	}
 	i = -1;
-	monitor_the_thinkers(init_circle(thinkers));
+	get_data()->thinkers_circle = init_circle(thinkers);
+	monitor_the_thinkers(get_data()->thinkers_circle);
 }
 
 static inline t_philosopher	*init_this_thinker(t_philosopher *this_thinker)

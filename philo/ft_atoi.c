@@ -48,30 +48,3 @@ static int	convert_recursively(const char *a, unsigned int toi)
 	toi = toi * 10 + single_digit;
 	return (convert_recursively(a + 1, toi));
 }
-
-// #include <assert.h>
-// #include <stdio.h>
-// int	main(void)
-// {
-// 	assert(ft_atoi("4") == 4);
-// 	assert(ft_atoi("  4") == 4);
-// 	assert(ft_atoi("  4  ") == 4);
-// 	assert(ft_atoi("  4  5") == 4);
-// 	assert(ft_atoi("1235") == 1235);
-// 	assert(ft_atoi("\r1235\n") == 1235);
-// 	assert(ft_atoi("  1235") == 1235);
-// 	assert(ft_atoi("0") == 0);
-// 	assert(ft_atoi("1") == 1);
-// 	assert(ft_atoi("-1") == -1);
-// 	assert(ft_atoi("-101") == -101);
-// 	assert(ft_atoi("-101") == -101);
-// 	assert(ft_atoi("-2147483648") == -2147483648);
-// 	assert(ft_atoi("2147483647") == 2147483647);
-// 	assert(ft_atoi("+123") == 123);
-// 	assert(ft_atoi("  +123") == 123);
-// 	assert(ft_atoi("abc1") == atoi("abc1"));
-// 	assert(ft_atoi("	abc1") == atoi("	abc1"));
-// 	assert(ft_atoi("\n\rabc1") == atoi("\n\rabc1"));
-// 	assert(ft_atoi("123aa") == atoi("123aa"));
-// 	printf("All tests passed.");
-// }

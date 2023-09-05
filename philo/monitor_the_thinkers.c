@@ -12,30 +12,43 @@
 
 #include "philo.h"
 
-static short		monitor_satisfaction(t_node *thinkers);
+static void			monitor_satisfaction(t_node *thinkers);
+static void			check_death(t_philosopher *this_thinker);
+static void			check_satisfaction(t_philosopher *this_thinker);
 
 void	*monitor_the_thinkers(void *thinkers)
 {
-	t_philosopher	*this_thinker;
-	int				time_to_die;
+	t_philosopher				*this_thinker;
+	static const t_funct_ptr	action[2] = {check_death, check_satisfaction};
 
-	time_to_die = get_table()->time_to_die;
 	while (FALSE == get_data()->stop_the_simulation)
 	{
 		this_thinker = ((t_node *)(thinkers))->philosopher;
-		if (get_time_in_ms() - this_thinker->last_meal_time > time_to_die)
-		{
-			get_data()->stop_the_simulation = TRUE;
-			this_thinker->state = DEAD;
-		}
-		else if (this_thinker->satisfied == TRUE)
-			monitor_satisfaction(thinkers);
+		action[this_thinker->satisfied](this_thinker);
 		thinkers = ((t_node *)(thinkers))->next;
 	}
 	return (NULL);
 }
 
-static inline short	monitor_satisfaction(t_node *thinkers)
+static void	check_satisfaction(t_philosopher *this_thinker)
+{
+	(void)this_thinker;
+	monitor_satisfaction(get_data()->thinkers_circle);
+}
+
+static void	check_death(t_philosopher *this_thinker)
+{
+	long long	time_to_die;
+
+	time_to_die = get_table()->time_to_die;
+	if (get_time_in_ms() - this_thinker->last_meal_time > time_to_die)
+	{
+		get_data()->stop_the_simulation = TRUE;
+		this_thinker->state = DEAD;
+	}
+}
+
+static inline void	monitor_satisfaction(t_node *thinkers)
 {
 	t_philosopher	*this_thinker;
 	t_node			*head;
@@ -45,9 +58,8 @@ static inline short	monitor_satisfaction(t_node *thinkers)
 	{
 		this_thinker = head->philosopher;
 		if (this_thinker->satisfied == FALSE)
-			return (FALSE);
+			return ;
 		head = head->next;
 	}
 	get_data()->stop_the_simulation = TRUE;
-	return (TRUE);
 }
