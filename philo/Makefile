@@ -8,7 +8,8 @@ endCollor = "\033[0m"
 
 SRCS = allocate_meta_data.c \
 	   create_the_thinkers.c \
-	   each_philosopher_actions.c \
+	   philo_thread_callback.c \
+	   philosopher_actions.c \
 	   ft_atoi.c \
 	   ft_lst_circular.c \
 	   get_time_in_ms.c \

@@ -6,7 +6,7 @@
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 08:33:54 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/09/04 11:53:14 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/09/05 09:12:34 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@
 # define USAGE_MSG "s] [time to die] [time to eat] [time to sleep] and"
 # define OPT_USAGE "optional -> [number of times each philosopher must eat]\n"
 
-typedef struct s_tab	t_table;
-typedef struct s_philo	t_philosopher;
+typedef struct s_tab				t_table;
+typedef struct s_philo				t_philosopher;
+typedef void						(*t_fptr_philo_action)(t_philosopher *);
 
 typedef struct s_node
 {
@@ -82,12 +83,18 @@ long long				get_time_in_ms(void);
 void					free_everything(t_meta_data *data);
 t_table					*get_table(void);
 t_meta_data				*get_data(void);
-void					*each_philosopher_actions(void *this_philo);
+void					*philo_thread_callback(void *this_philo);
 void					*monitor_the_thinkers(void *thinkers);
 void					ft_lst_circular(t_node **head);
 void					ft_lstcircular_free(t_node **head);
 int						ft_atoi(const char *str);
 void					ft_lstadd_back(t_node **lst, t_node *nw);
 t_node					*ft_lstnew(void *content);
+void					*terminate_all_threads(void);
+void					philosopher_eat(t_philosopher *philo);
+void					philosopher_think(t_philosopher *philo);
+void					philosopher_sleep(t_philosopher *philo);
+void					philosopher_dead(t_philosopher *philo);
+void					philosopher_satisfied(t_philosopher *philo);
 
 #endif

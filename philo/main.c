@@ -20,13 +20,4 @@ int	main(int ac, char **av)
 		return (1);
 	d = allocate_meta_data(av, ac);
 	create_the_thinkers(d);
-	while (TRUE)
-	{
-		if (get_data()->detached_threads)
-		{
-			free_everything(d);
-			return (0);
-		}
-	}
-	free_everything(d);
 }

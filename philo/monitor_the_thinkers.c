@@ -13,7 +13,6 @@
 #include "philo.h"
 
 static short		monitor_satisfaction(t_node *thinkers);
-static void			*terminate_all_threads(void);
 
 void	*monitor_the_thinkers(void *thinkers)
 {
@@ -58,13 +57,16 @@ static inline short	monitor_satisfaction(t_node *thinkers)
 	return (TRUE);
 }
 
-static inline void	*terminate_all_threads(void)
+inline void	*terminate_all_threads(void)
 {
 	int	i;
 
 	i = -1;
+	if (get_data()->detached_threads)
+		return (NULL);
+	get_data()->detached_threads = TRUE;
 	while (++i < get_table()->nb_of_philos)
 		pthread_detach(get_data()->threads[i]);
-	get_data()->detached_threads = TRUE;
+	free_everything(get_data());
 	return (NULL);
 }

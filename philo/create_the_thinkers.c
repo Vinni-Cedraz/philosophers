@@ -6,7 +6,7 @@
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 08:45:07 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/09/04 11:51:02 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/09/05 09:12:09 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	create_the_thinkers(t_meta_data *d)
 	while (++i < d->table->nb_of_philos)
 	{
 		this_thinker = init_this_thinker(&thinkers[i]);
-		pthread_create(&threads[i], 0, each_philosopher_actions, this_thinker);
+		pthread_create(&threads[i], 0, philo_thread_callback, this_thinker);
 	}
 	i = -1;
 	monitor_the_thinkers(init_circle(thinkers));
