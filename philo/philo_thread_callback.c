@@ -20,11 +20,11 @@ void	*philo_thread_callback(void *this_philo)
 		philosopher_eat,
 		philosopher_sleep,
 		philosopher_dead,
-		philosopher_dead
+		philosopher_satisfied
 	};
 
 	philo = (t_philosopher *)this_philo;
-	while (!get_data()->detached_threads)
+	while (get_data()->stop_the_simulation == FALSE)
 	{
 		output_state(*philo, get_time_in_ms());
 		action[philo->state](philo);

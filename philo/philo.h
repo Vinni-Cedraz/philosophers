@@ -6,7 +6,7 @@
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 08:33:54 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/09/05 09:12:34 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:44:56 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 
 # define TRUE 1
 # define FALSE 0
+# define LOCK 0
+# define UNLOCK 1
+# define LEFT 0
+# define RIGHT 1
 
 # define E_MSG "Error: wrong number of arguments\nUsage: [number of philosopher"
 # define USAGE_MSG "s] [time to die] [time to eat] [time to sleep] and"
@@ -52,7 +56,7 @@ typedef struct s_meta_data
 	t_node				*thinkers_circle;
 	int					start_time;
 	pthread_t			*threads;
-	_Atomic short		detached_threads;
+	_Atomic short		stop_the_simulation;
 }						t_meta_data;
 
 typedef struct s_tab
@@ -68,6 +72,9 @@ typedef struct s_tab
 
 typedef struct s_philo
 {
+	int						left_fork_idx;
+	int						right_fork_idx;
+	int						is_right_handed;
 	unsigned short			id;
 	_Atomic t_action		state;
 	_Atomic long long		last_meal_time;
@@ -90,11 +97,11 @@ void					ft_lstcircular_free(t_node **head);
 int						ft_atoi(const char *str);
 void					ft_lstadd_back(t_node **lst, t_node *nw);
 t_node					*ft_lstnew(void *content);
-void					*terminate_all_threads(void);
 void					philosopher_eat(t_philosopher *philo);
 void					philosopher_think(t_philosopher *philo);
 void					philosopher_sleep(t_philosopher *philo);
 void					philosopher_dead(t_philosopher *philo);
 void					philosopher_satisfied(t_philosopher *philo);
+void					lock_unlock_forks(t_philosopher *philo, int lock_unlock);
 
 #endif

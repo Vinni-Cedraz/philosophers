@@ -43,6 +43,11 @@ static inline t_philosopher	*init_this_thinker(t_philosopher *this_thinker)
 	this_thinker->nb_of_meals = 0;
 	this_thinker->state = THINK;
 	this_thinker->last_meal_time = *get_start_time();
+	this_thinker->is_right_handed = this_thinker->id & 1;
+	this_thinker->left_fork_idx = this_thinker->id - 1;
+	if (this_thinker->left_fork_idx == -1)
+		this_thinker->left_fork_idx = get_table()->nb_of_philos - 1;
+	this_thinker->right_fork_idx = this_thinker->id;
 	return (this_thinker);
 }
 
