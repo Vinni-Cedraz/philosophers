@@ -15,15 +15,18 @@
 int	main(int ac, char **av)
 {
 	t_meta_data	*d;
-	int			i;
 
-	i = -1;
 	if (invalid_arg(ac))
 		return (1);
 	d = allocate_meta_data(av, ac);
 	create_the_thinkers(d);
 	while (TRUE)
+	{
 		if (get_data()->detached_threads)
+		{
+			free_everything(d);
 			return (0);
+		}
+	}
 	free_everything(d);
 }
