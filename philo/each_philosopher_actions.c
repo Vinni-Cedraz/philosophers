@@ -44,8 +44,9 @@ static inline void	philosopher_think(t_philosopher *philo)
 	right_fork_idx = philo->id;
 	left_fork_idx = philo->id - 1;
 	if (-1 == left_fork_idx)
-	{
 		left_fork_idx = get_table()->nb_of_philos - 1;
+	if (philo->id % 2)
+	{
 		pthread_mutex_lock(&get_table()->forks[right_fork_idx]);
 		pthread_mutex_lock(&get_table()->forks[left_fork_idx]);
 	}
@@ -67,8 +68,9 @@ static inline void	philosopher_eat(t_philosopher *philo)
 	philo->last_meal_time = get_time_in_ms();
 	usleep(get_table()->time_to_eat * 1000);
 	if (-1 == left_fork_idx)
-	{
 		left_fork_idx = get_table()->nb_of_philos - 1;
+	if (philo->id % 2)
+	{
 		pthread_mutex_unlock(&get_table()->forks[right_fork_idx]);
 		pthread_mutex_unlock(&get_table()->forks[left_fork_idx]);
 	}

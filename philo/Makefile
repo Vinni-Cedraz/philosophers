@@ -1,7 +1,40 @@
-all:
-	cc -O3 -lpthread -Wall -Wextra -Werror *.c -o philo
+NAME	= philo
+FLAGS	= -Wall -Wextra -Werror -O3 -pthread
+
+OBJ_PATH = objs/
+
+Green = "\033[0;32m"
+endCollor = "\033[0m"
+
+SRCS = allocate_meta_data.c \
+	   create_the_thinkers.c \
+	   each_philosopher_actions.c \
+	   ft_atoi.c \
+	   ft_lst_circular.c \
+	   get_time_in_ms.c \
+	   monitor_the_thinkers.c \
+	   output_state.c \
+	   main.c \
+
+OBJS = $(SRCS:%.c=$(OBJ_PATH)%.o)
+
+all: $(OBJ_PATH) $(NAME) 
+
+$(OBJ_PATH)%.o: %.c
+	$(CC) $(FLAGS) -c $< -o $@
+
+$(OBJ_PATH):
+	mkdir -p $(OBJ_PATH)
+
+$(NAME): $(OBJS)
+	@printf "\n";
+	$(CC) $(FLAGS) $^ -o $@
+	@printf "\nexecutable "$(Green)"philo"$(endCollor)" created\n";
 
 clean:
-	rm -f philo
+	rm -rf $(OBJ_PATH)
 
 fclean: clean
+	rm -f $(NAME)
+
+re: fclean all

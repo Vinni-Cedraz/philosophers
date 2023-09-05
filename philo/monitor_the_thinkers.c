@@ -26,22 +26,17 @@ void	*monitor_the_thinkers(void *thinkers)
 	while (TRUE)
 	{
 		this_thinker = ((t_node *)(thinkers))->philosopher;
-		if (get_time_in_ms() - this_thinker->last_meal_time >= death_time)
-		{
-			this_thinker->state = DEAD;
-			output_state(*this_thinker, get_time_in_ms());
-			return (terminate_all_threads());
-		}
-		if (this_thinker->state == DEAD)
-		{
-			output_state(*this_thinker, get_time_in_ms());
-			return (NULL);
-		}
-		else if (this_thinker->nb_of_meals == times_each_must_eat)
+		if (this_thinker->nb_of_meals == times_each_must_eat)
 		{
 			this_thinker->state = SATISFIED;
 			if (monitor_satisfaction(thinkers))
 				return (terminate_all_threads());
+		}
+		else if (get_time_in_ms() - this_thinker->last_meal_time >= death_time)
+		{
+			this_thinker->state = DEAD;
+			output_state(*this_thinker, get_time_in_ms());
+			return (terminate_all_threads());
 		}
 		thinkers = ((t_node *)(thinkers))->next;
 	}

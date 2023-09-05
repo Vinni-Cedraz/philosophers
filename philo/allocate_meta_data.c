@@ -42,7 +42,6 @@ static void	init_table(t_meta_data *d, char **av, int ac)
 		d->table->times_each_must_eat = ft_atoi(av[5]);
 	else
 		d->table->times_each_must_eat = -1;
-	debug_print_table(d);
 }
 
 void	free_everything(t_meta_data *data)

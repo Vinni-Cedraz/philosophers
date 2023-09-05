@@ -51,7 +51,7 @@ typedef struct s_meta_data
 	t_node				*thinkers_circle;
 	int					start_time;
 	pthread_t			*threads;
-	_Atomic short detached_threads;
+	_Atomic short		detached_threads;
 }						t_meta_data;
 
 typedef struct s_tab
@@ -61,20 +61,19 @@ typedef struct s_tab
 	unsigned short		time_to_eat;
 	unsigned short		time_to_sleep;
 	pthread_mutex_t		*forks;
-	_Atomic short times_each_must_eat;
+	_Atomic short		times_each_must_eat;
 	pthread_mutex_t		stdout_mutex;
 }						t_table;
 
 typedef struct s_philo
 {
-	unsigned short		id;
-	_Atomic t_action state;
-	_Atomic long long last_meal_time;
-	_Atomic unsigned short nb_of_meals;
+	unsigned short			id;
+	_Atomic t_action		state;
+	_Atomic long long		last_meal_time;
+	_Atomic unsigned short	nb_of_meals;
 }						t_philosopher;
 
-_Atomic long long 		*get_start_time(void);
-void					debug_print_table(t_meta_data *d);
+_Atomic long long		*get_start_time(void);
 unsigned short			invalid_arg(int ac);
 t_meta_data				*allocate_meta_data(char **av, int ac);
 void					create_the_thinkers(t_meta_data *d);
@@ -85,7 +84,6 @@ t_table					*get_table(void);
 t_meta_data				*get_data(void);
 void					*each_philosopher_actions(void *this_philo);
 void					*monitor_the_thinkers(void *thinkers);
-void					debug_print_thinkers(t_meta_data *d);
 void					ft_lst_circular(t_node **head);
 void					ft_lstcircular_free(t_node **head);
 int						ft_atoi(const char *str);

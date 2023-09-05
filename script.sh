@@ -1,10 +1,12 @@
-cat outfile | grep "0 is eating" | wc -l
-cat outfile | grep "1 is eating" | wc -l
-cat outfile | grep "2 is eating" | wc -l
-cat outfile | grep "3 is eating" | wc -l
-cat outfile | grep "4 is eating" | wc -l
-cat outfile | grep "5 is eating" | wc -l
-cat outfile | grep "6 is eating" | wc -l
-cat outfile | grep "7 is eating" | wc -l
-cat outfile | grep "8 is eating" | wc -l
-cat outfile | grep "9 is eating" | wc -l
+#!/bin/bash
+
+# you should execute this script giving the number of philosophers as argument
+# and having an outfile in the current directory
+
+idx=-1
+philos="$1"
+
+while [ $((++idx)) -lt "$philos" ]
+do
+    cat outfile | grep "$idx is eating" | wc -l
+done
