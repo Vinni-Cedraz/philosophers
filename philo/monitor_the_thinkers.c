@@ -12,37 +12,30 @@
 
 #include "philo.h"
 
-static short		all_are_satisfied(t_node *thinkers);
+static short		monitor_satisfaction(t_node *thinkers);
 
 void	*monitor_the_thinkers(void *thinkers)
 {
 	t_philosopher	*this_thinker;
-	int				times_each_must_eat;
 	int				time_to_die;
 
 	time_to_die = get_table()->time_to_die;
-	times_each_must_eat = get_table()->times_each_must_eat;
-	while (TRUE)
+	while (FALSE == get_data()->stop_the_simulation)
 	{
 		this_thinker = ((t_node *)(thinkers))->philosopher;
-		if (get_time_in_ms() - this_thinker->last_meal_time >= time_to_die)
+		if (get_time_in_ms() - this_thinker->last_meal_time > time_to_die)
 		{
 			get_data()->stop_the_simulation = TRUE;
 			this_thinker->state = DEAD;
-			output_state(*this_thinker, get_time_in_ms());
-			return (NULL);
 		}
-		else if (this_thinker->nb_of_meals == times_each_must_eat)
-		{
-			this_thinker->state = SATISFIED;
-			if (all_are_satisfied(thinkers) == TRUE)
-				return (NULL);
-		}
+		else if (this_thinker->satisfied == TRUE)
+			monitor_satisfaction(thinkers);
 		thinkers = ((t_node *)(thinkers))->next;
 	}
+	return (NULL);
 }
 
-static inline short	all_are_satisfied(t_node *thinkers)
+static inline short	monitor_satisfaction(t_node *thinkers)
 {
 	t_philosopher	*this_thinker;
 	t_node			*head;
@@ -51,7 +44,7 @@ static inline short	all_are_satisfied(t_node *thinkers)
 	while (head != thinkers)
 	{
 		this_thinker = head->philosopher;
-		if (this_thinker->state != SATISFIED)
+		if (this_thinker->satisfied == FALSE)
 			return (FALSE);
 		head = head->next;
 	}

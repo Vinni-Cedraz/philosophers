@@ -14,6 +14,15 @@
 
 void	output_state(t_philosopher thinker, long timestamp_in_ms)
 {
+	_Atomic static int	someone_died;
+
+	if (thinker.state == DEAD)
+	{
+		someone_died++;
+		printf("%ldms %d died\n", timestamp_in_ms, thinker.id);
+	}
+	if (1 == someone_died)
+		return ;
 	pthread_mutex_lock(&get_table()->stdout_mutex);
 	if (thinker.state == THINK)
 		printf("%ldms %d is thinking\n", timestamp_in_ms, thinker.id);
@@ -21,8 +30,6 @@ void	output_state(t_philosopher thinker, long timestamp_in_ms)
 		printf("%ldms %d is eating\n", timestamp_in_ms, thinker.id);
 	else if (thinker.state == SLEEP)
 		printf("%ldms %d is sleeping\n", timestamp_in_ms, thinker.id);
-	else if (thinker.state == DEAD)
-		printf("%ldms %d died\n", timestamp_in_ms, thinker.id);
 	pthread_mutex_unlock(&get_table()->stdout_mutex);
 }
 

@@ -30,9 +30,9 @@
 # define USAGE_MSG "s] [time to die] [time to eat] [time to sleep] and"
 # define OPT_USAGE "optional -> [number of times each philosopher must eat]\n"
 
-typedef struct s_tab				t_table;
-typedef struct s_philo				t_philosopher;
-typedef void						(*t_fptr_philo_action)(t_philosopher *);
+typedef struct s_tab	t_table;
+typedef struct s_philo	t_philosopher;
+typedef void			(*t_funct_ptr)(t_philosopher *);
 
 typedef struct s_node
 {
@@ -46,7 +46,6 @@ typedef enum e_action
 	EAT,
 	SLEEP,
 	DEAD,
-	SATISFIED
 }						t_action;
 
 typedef struct s_meta_data
@@ -79,29 +78,30 @@ typedef struct s_philo
 	_Atomic t_action		state;
 	_Atomic long long		last_meal_time;
 	_Atomic unsigned short	nb_of_meals;
+	_Atomic unsigned short	satisfied;
 }						t_philosopher;
 
-_Atomic long long		*get_start_time(void);
-unsigned short			invalid_arg(int ac);
-t_meta_data				*allocate_meta_data(char **av, int ac);
-void					create_the_thinkers(t_meta_data *d);
-void					output_state(t_philosopher thinker, long timestamp);
-long long				get_time_in_ms(void);
-void					free_everything(t_meta_data *data);
-t_table					*get_table(void);
-t_meta_data				*get_data(void);
-void					*philo_thread_callback(void *this_philo);
-void					*monitor_the_thinkers(void *thinkers);
-void					ft_lst_circular(t_node **head);
-void					ft_lstcircular_free(t_node **head);
-int						ft_atoi(const char *str);
-void					ft_lstadd_back(t_node **lst, t_node *nw);
-t_node					*ft_lstnew(void *content);
-void					philosopher_eat(t_philosopher *philo);
-void					philosopher_think(t_philosopher *philo);
-void					philosopher_sleep(t_philosopher *philo);
-void					philosopher_dead(t_philosopher *philo);
-void					philosopher_satisfied(t_philosopher *philo);
-void					lock_unlock_forks(t_philosopher *philo, int lock_unlock);
+_Atomic long long	*get_start_time(void);
+unsigned short		invalid_arg(int ac);
+t_meta_data			*allocate_meta_data(char **av, int ac);
+void				create_the_thinkers(t_meta_data *d);
+void				output_state(t_philosopher thinker, long timestamp);
+long long			get_time_in_ms(void);
+void				free_everything(t_meta_data *data);
+t_table				*get_table(void);
+t_meta_data			*get_data(void);
+void				*philo_thread_callback(void *this_philo);
+void				*monitor_the_thinkers(void *thinkers);
+void				ft_lst_circular(t_node **head);
+void				ft_lstcircular_free(t_node **head);
+int					ft_atoi(const char *str);
+void				ft_lstadd_back(t_node **lst, t_node *nw);
+t_node				*ft_lstnew(void *content);
+void				philosopher_eat(t_philosopher *philo);
+void				philosopher_think(t_philosopher *philo);
+void				philosopher_sleep(t_philosopher *philo);
+void				philosopher_dead(t_philosopher *philo);
+void				philosopher_satisfied(t_philosopher *philo);
+void				lock_unlock_forks(t_philosopher *philo, int lock_unlock);
 
 #endif
