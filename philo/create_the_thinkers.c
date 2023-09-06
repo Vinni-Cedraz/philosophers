@@ -51,7 +51,6 @@ static inline t_philosopher	*init_this_thinker(t_philosopher *this_thinker)
 		this_thinker->left_fork_idx = get_table()->nb_of_philos - 1;
 	this_thinker->right_fork_idx = this_thinker->id;
 	this_thinker->satisfied = FALSE;
-	this_thinker->start_time = get_time();
 	return (this_thinker);
 }
 

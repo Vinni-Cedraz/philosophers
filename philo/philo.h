@@ -80,7 +80,7 @@ typedef struct s_philo
 	_Atomic long long		last_meal_time;
 	_Atomic unsigned short	nb_of_meals;
 	_Atomic unsigned short	satisfied;
-	time_t					start_time;
+	_Atomic time_t			start_time;
 }						t_philosopher;
 
 _Atomic long long	*get_start_time(void);

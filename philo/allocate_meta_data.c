@@ -35,7 +35,7 @@ t_meta_data	*allocate_meta_data(char **av, int ac)
 static void	init_table(t_meta_data *d, char **av, int ac)
 {
 	d->table->nb_of_philos = ft_atoi(av[1]);
-	d->table->time_to_die = ft_atoi(av[2]) + 10;
+	d->table->time_to_die = ft_atoi(av[2]);
 	d->table->time_to_eat = ft_atoi(av[3]);
 	d->table->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 6)

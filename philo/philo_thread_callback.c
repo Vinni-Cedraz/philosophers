@@ -23,6 +23,7 @@ inline void	*philo_thread_callback(void *this_philo)
 	};
 
 	philo = (t_philosopher *)this_philo;
+	philo->start_time = get_time();
 	while (philo->satisfied == FALSE)
 	{
 		if (action[philo->state])
