@@ -103,5 +103,6 @@ void				philosopher_sleep(t_philosopher *philo);
 void				philosopher_dead(t_philosopher *philo);
 void				philosopher_satisfied(t_philosopher *philo);
 void				lock_unlock_forks(t_philosopher *philo, int lock_unlock);
+void				philo_starves_alone(t_philosopher *philo);
 
 #endif

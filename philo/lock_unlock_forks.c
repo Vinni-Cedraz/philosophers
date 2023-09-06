@@ -19,9 +19,9 @@ static void	unlock_right_handed(t_philosopher *philo);
 
 void	lock_unlock_forks(t_philosopher *philo, int lock_unlock)
 {
-	static const t_funct_ptr	action[2][2] = {
-	{lock_left_handed, lock_right_handed},
-	{unlock_left_handed, unlock_right_handed},
+	static const t_funct_ptr	action[2][3] = {
+	{lock_left_handed, lock_right_handed, philo_starves_alone},
+	{unlock_left_handed, unlock_right_handed, philo_starves_alone},
 	};
 
 	action[lock_unlock][philo->is_right_handed](philo);
