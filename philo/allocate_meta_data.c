@@ -56,6 +56,7 @@ void	free_everything(t_meta_data *data)
 	pthread_mutex_destroy(&data->table->stdout_mutex);
 	free(data->table->forks);
 	free(data->philosophers);
+	free(data->threads);
 	ft_lstcircular_free(&data->thinkers_circle);
 }
 
