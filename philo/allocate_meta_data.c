@@ -18,15 +18,17 @@ t_meta_data	*allocate_meta_data(char **av, int ac)
 {
 	int			i;
 	t_meta_data	*d;
+	int			nb_of_philos;
 
 	d = get_data();
 	d->table = get_table();
 	init_table(d, av, ac);
-	d->threads = malloc(sizeof(pthread_t) * d->table->nb_of_philos);
-	d->philosophers = malloc(sizeof(t_philosopher) * d->table->nb_of_philos);
-	d->table->forks = malloc(sizeof(pthread_mutex_t) * d->table->nb_of_philos);
+	nb_of_philos = d->table->nb_of_philos;
+	d->threads = malloc(sizeof(pthread_t) * nb_of_philos);
+	d->philosophers = malloc(sizeof(t_philosopher) * nb_of_philos);
+	d->table->forks = malloc(sizeof(pthread_mutex_t) * (nb_of_philos + 1));
 	i = -1;
-	while (++i < d->table->nb_of_philos)
+	while (++i < d->table->nb_of_philos + 1)
 		pthread_mutex_init(&d->table->forks[i], NULL);
 	pthread_mutex_init(&d->table->stdout_mutex, NULL);
 	return (d);

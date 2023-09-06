@@ -14,15 +14,12 @@
 
 inline void	output_state(t_philosopher thinker, long timestamp_in_ms)
 {
-	_Atomic static int	someone_died;
 	static const char	*msgs[] = {
 		THINKING, EATING, SLEEPING, DIED
 	};
 
-	if (someone_died)
+	if (TRUE == get_data()->stop_the_simulation)
 		return ;
-	if (thinker.state == DEAD)
-		someone_died++;
 	pthread_mutex_lock(&get_table()->stdout_mutex);
 	printf(msgs[thinker.state], timestamp_in_ms, thinker.id);
 	pthread_mutex_unlock(&get_table()->stdout_mutex);
