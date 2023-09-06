@@ -54,7 +54,7 @@ static void	check_satisfaction_of_all_thinkers(t_philosopher *this_thinker)
 	tail = head->next;
 	while (head != tail)
 	{
-		this_thinker = head->philosopher;
+		this_thinker = tail->philosopher;
 		if (this_thinker->is_satisfied != TRUE)
 			return ;
 		tail = tail->next;

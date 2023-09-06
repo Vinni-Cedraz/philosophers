@@ -21,8 +21,8 @@
 
 # define TRUE 1
 # define FALSE 0
-# define LOCK 0
-# define UNLOCK 1
+# define LOCK 1
+# define UNLOCK 0
 # define LEFT 0
 # define RIGHT 1
 
@@ -77,9 +77,10 @@ typedef struct s_tab
 
 typedef struct s_philo
 {
-	int						left_fork_idx;
-	int						right_fork_idx;
-	int						is_right_handed;
+	unsigned short			left_fork_idx;
+	unsigned short			right_fork_idx;
+	unsigned short			is_right_handed;
+	unsigned short			single_philo_at_table;
 	unsigned short			id;
 	_Atomic t_action		state;
 	_Atomic long long		last_meal_time;
