@@ -15,21 +15,16 @@
 inline void	output_state(t_philosopher thinker, long timestamp_in_ms)
 {
 	_Atomic static int	someone_died;
+	static const char	*msgs[] = {
+		THINKING, EATING, SLEEPING, DIED
+	};
 
-	if (thinker.state == DEAD)
-	{
-		someone_died++;
-		printf("%ldms %d died\n", timestamp_in_ms, thinker.id);
-	}
-	if (1 == someone_died)
+	if (someone_died)
 		return ;
+	if (thinker.state == DEAD)
+		someone_died++;
 	pthread_mutex_lock(&get_table()->stdout_mutex);
-	if (thinker.state == THINK)
-		printf("%ldms %d is thinking\n", timestamp_in_ms, thinker.id);
-	else if (thinker.state == EAT)
-		printf("%ldms %d is eating\n", timestamp_in_ms, thinker.id);
-	else if (thinker.state == SLEEP)
-		printf("%ldms %d is sleeping\n", timestamp_in_ms, thinker.id);
+	printf(msgs[thinker.state], timestamp_in_ms, thinker.id);
 	pthread_mutex_unlock(&get_table()->stdout_mutex);
 }
 
@@ -37,7 +32,7 @@ inline unsigned short	invalid_arg(int ac)
 {
 	if (ac < 5 || ac > 6)
 	{
-		printf("%s%s%s\n", E_MSG, USAGE_MSG, USAGE_MSG);
+		printf("%s\n", E_MSG);
 		return (TRUE);
 	}
 	return (FALSE);

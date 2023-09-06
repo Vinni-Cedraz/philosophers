@@ -26,9 +26,15 @@
 # define LEFT 0
 # define RIGHT 1
 
-# define E_MSG "Error: wrong number of arguments\nUsage: [number of philosopher"
-# define USAGE_MSG "s] [time to die] [time to eat] [time to sleep] and"
-# define OPT_USAGE "optional -> [number of times each philosopher must eat]\n"
+# define E_MSG \
+	"Error: wrong number of arguments\nUsage: [number of philosopher           \
+  	s] [time to die] [time to eat] [time to sleep] and                         \
+  	optional -> [number of times each philosopher must eat]\n"
+
+# define THINKING "%ldms %d is thinking\n"
+# define EATING "%ldms %d is eating\n"
+# define SLEEPING "%ldms %d sleep\n"
+# define DIED "%ldms %d died\n"
 
 typedef struct s_tab	t_table;
 typedef struct s_philo	t_philosopher;
