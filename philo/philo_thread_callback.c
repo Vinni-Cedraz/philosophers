@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void	*philo_thread_callback(void *this_philo)
+inline void	*philo_thread_callback(void *this_philo)
 {
 	t_philosopher				*philo;
 	static const t_funct_ptr	action[4] = {

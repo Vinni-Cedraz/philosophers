@@ -53,15 +53,15 @@ typedef struct s_meta_data
 	t_table				*table;
 	t_philosopher		*philosophers;
 	t_node				*thinkers_circle;
-	int					start_time;
 	pthread_t			*threads;
 	_Atomic short		stop_the_simulation;
+	time_t				start_time;
 }						t_meta_data;
 
 typedef struct s_tab
 {
 	unsigned short		nb_of_philos;
-	unsigned short		time_to_die;
+	time_t				time_to_die;
 	unsigned short		time_to_eat;
 	unsigned short		time_to_sleep;
 	pthread_mutex_t		*forks;
@@ -71,6 +71,7 @@ typedef struct s_tab
 
 typedef struct s_philo
 {
+	unsigned short			is_dying;
 	int						left_fork_idx;
 	int						right_fork_idx;
 	int						is_right_handed;
@@ -79,6 +80,7 @@ typedef struct s_philo
 	_Atomic long long		last_meal_time;
 	_Atomic unsigned short	nb_of_meals;
 	_Atomic unsigned short	satisfied;
+	time_t					start_time;
 }						t_philosopher;
 
 _Atomic long long	*get_start_time(void);
@@ -86,7 +88,6 @@ unsigned short		invalid_arg(int ac);
 t_meta_data			*allocate_meta_data(char **av, int ac);
 void				create_the_thinkers(t_meta_data *d);
 void				output_state(t_philosopher thinker, long timestamp);
-long long			get_time_in_ms(void);
 void				free_everything(t_meta_data *data);
 t_table				*get_table(void);
 t_meta_data			*get_data(void);
@@ -104,5 +105,8 @@ void				philosopher_dead(t_philosopher *philo);
 void				philosopher_satisfied(t_philosopher *philo);
 void				lock_unlock_forks(t_philosopher *philo, int lock_unlock);
 void				philo_starves_alone(t_philosopher *philo);
+time_t				get_time(void);
+time_t				get_time_in_ms(t_philosopher *philo);
+void				check_if_philo_is_dying(t_philosopher *philo);
 
 #endif

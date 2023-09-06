@@ -25,7 +25,6 @@ void	create_the_thinkers(t_meta_data *d)
 	i = -1;
 	thinkers = d->philosophers;
 	threads = d->threads;
-	get_start_time();
 	while (++i < d->table->nb_of_philos)
 	{
 		this_thinker = init_this_thinker(&thinkers[i]);
@@ -43,7 +42,7 @@ static inline t_philosopher	*init_this_thinker(t_philosopher *this_thinker)
 	this_thinker->id = call_counter++;
 	this_thinker->nb_of_meals = 0;
 	this_thinker->state = THINK;
-	this_thinker->last_meal_time = *get_start_time();
+	this_thinker->last_meal_time = get_data()->start_time;
 	this_thinker->is_right_handed = this_thinker->id & 1;
 	if (get_table()->nb_of_philos == 1)
 		this_thinker->is_right_handed = 2;
@@ -52,6 +51,7 @@ static inline t_philosopher	*init_this_thinker(t_philosopher *this_thinker)
 		this_thinker->left_fork_idx = get_table()->nb_of_philos - 1;
 	this_thinker->right_fork_idx = this_thinker->id;
 	this_thinker->satisfied = FALSE;
+	this_thinker->start_time = get_time();
 	return (this_thinker);
 }
 

@@ -17,7 +17,7 @@ static void	lock_right_handed(t_philosopher *philo);
 static void	unlock_left_handed(t_philosopher *philo);
 static void	unlock_right_handed(t_philosopher *philo);
 
-void	lock_unlock_forks(t_philosopher *philo, int lock_unlock)
+inline void	lock_unlock_forks(t_philosopher *philo, int lock_unlock)
 {
 	static const t_funct_ptr	action[2][3] = {
 	{lock_left_handed, lock_right_handed, philo_starves_alone},
@@ -27,25 +27,25 @@ void	lock_unlock_forks(t_philosopher *philo, int lock_unlock)
 	action[lock_unlock][philo->is_right_handed](philo);
 }
 
-static void	lock_left_handed(t_philosopher *philo)
+static inline void	lock_left_handed(t_philosopher *philo)
 {
 	pthread_mutex_lock(&get_table()->forks[philo->left_fork_idx]);
 	pthread_mutex_lock(&get_table()->forks[philo->right_fork_idx]);
 }
 
-static void	unlock_left_handed(t_philosopher *philo)
+static inline void	unlock_left_handed(t_philosopher *philo)
 {
 	pthread_mutex_unlock(&get_table()->forks[philo->left_fork_idx]);
 	pthread_mutex_unlock(&get_table()->forks[philo->right_fork_idx]);
 }
 
-static void	lock_right_handed(t_philosopher *philo)
+static inline void	lock_right_handed(t_philosopher *philo)
 {
 	pthread_mutex_lock(&get_table()->forks[philo->right_fork_idx]);
 	pthread_mutex_lock(&get_table()->forks[philo->left_fork_idx]);
 }
 
-static void	unlock_right_handed(t_philosopher *philo)
+static inline void	unlock_right_handed(t_philosopher *philo)
 {
 	pthread_mutex_unlock(&get_table()->forks[philo->right_fork_idx]);
 	pthread_mutex_unlock(&get_table()->forks[philo->left_fork_idx]);

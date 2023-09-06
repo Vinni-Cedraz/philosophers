@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void	output_state(t_philosopher thinker, long timestamp_in_ms)
+inline void	output_state(t_philosopher thinker, long timestamp_in_ms)
 {
 	_Atomic static int	someone_died;
 
@@ -33,7 +33,7 @@ void	output_state(t_philosopher thinker, long timestamp_in_ms)
 	pthread_mutex_unlock(&get_table()->stdout_mutex);
 }
 
-unsigned short	invalid_arg(int ac)
+inline unsigned short	invalid_arg(int ac)
 {
 	if (ac < 5 || ac > 6)
 	{

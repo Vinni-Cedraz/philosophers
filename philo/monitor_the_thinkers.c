@@ -17,17 +17,16 @@ static short		all_are_satisfied(t_node *thinkers);
 void	*monitor_the_thinkers(void *thinkers)
 {
 	t_philosopher	*this_thinker;
-	int				time_to_die;
 
-	time_to_die = get_table()->time_to_die;
 	while (TRUE)
 	{
 		this_thinker = ((t_node *)(thinkers))->philosopher;
-		if (get_time_in_ms() - this_thinker->last_meal_time >= time_to_die)
+		check_if_philo_is_dying(this_thinker);
+		if (this_thinker->is_dying)
 		{
 			get_data()->stop_the_simulation = TRUE;
 			this_thinker->state = DEAD;
-			output_state(*this_thinker, get_time_in_ms());
+			output_state(*this_thinker, get_time_in_ms(this_thinker));
 			return (NULL);
 		}
 		else if (this_thinker->satisfied)
