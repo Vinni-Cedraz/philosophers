@@ -48,7 +48,7 @@ static inline t_philosopher	*init_this_thinker(t_philosopher *this_thinker)
 	if (get_table()->nb_of_philos == 1)
 		this_thinker->single_philo_at_table = TRUE;
 	this_thinker->left_fork_idx = this_thinker->id - 1;
-	this_thinker->right_fork_idx = this_thinker->id;
+	this_thinker->right_fork_idx = this_thinker->id % get_table()->nb_of_philos;
 	this_thinker->start_time = get_time();
 	return (this_thinker);
 }

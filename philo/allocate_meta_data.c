@@ -26,9 +26,9 @@ t_meta_data	*allocate_meta_data(char **av, int ac)
 	nb_of_philos = d->table->nb_of_philos;
 	d->threads = malloc(sizeof(pthread_t) * nb_of_philos);
 	d->philosophers = malloc(sizeof(t_philosopher) * nb_of_philos);
-	d->table->forks = malloc(sizeof(pthread_mutex_t) * (nb_of_philos + 1));
+	d->table->forks = malloc(sizeof(pthread_mutex_t) * nb_of_philos);
 	i = -1;
-	while (++i < d->table->nb_of_philos + 1)
+	while (++i < d->table->nb_of_philos)
 		pthread_mutex_init(&d->table->forks[i], NULL);
 	pthread_mutex_init(&d->table->stdout_mutex, NULL);
 	return (d);
@@ -37,7 +37,7 @@ t_meta_data	*allocate_meta_data(char **av, int ac)
 static void	init_table(t_meta_data *d, char **av, int ac)
 {
 	d->table->nb_of_philos = ft_atoi(av[1]);
-	d->table->time_to_die = ft_atoi(av[2]);
+	d->table->time_to_die = ft_atoi(av[2]) + TOLERANCE;
 	d->table->time_to_eat = ft_atoi(av[3]);
 	d->table->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 6)

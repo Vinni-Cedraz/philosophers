@@ -21,14 +21,21 @@
 
 # define TRUE 1
 # define FALSE 0
-# define LOCK 0
-# define UNLOCK 1
+# define LOCK 1
+# define UNLOCK 0
 # define LEFT 0
 # define RIGHT 1
+# define TOLERANCE 5
 
-# define E_MSG "Error: wrong number of arguments\nUsage: [number of philosopher"
-# define USAGE_MSG "s] [time to die] [time to eat] [time to sleep] and"
-# define OPT_USAGE "optional -> [number of times each philosopher must eat]\n"
+# define E_MSG \
+	"Error: wrong number of arguments\nUsage: [number of philosopher           \
+  	s] [time to die] [time to eat] [time to sleep] and                         \
+  	optional -> [number of times each philosopher must eat]\n"
+
+# define THINKING "%ldms %d is thinking\n"
+# define EATING "%ldms %d is eating\n"
+# define SLEEPING "%ldms %d sleep\n"
+# define DIED "%ldms %d died\n"
 
 typedef struct s_tab	t_table;
 typedef struct s_philo	t_philosopher;
@@ -55,7 +62,7 @@ typedef struct s_meta_data
 	t_node				*thinkers_circle;
 	pthread_t			*threads;
 	_Atomic short		stop_the_simulation;
-	time_t				start_time;
+	_Atomic time_t		start_time;
 }						t_meta_data;
 
 typedef struct s_tab
@@ -71,15 +78,15 @@ typedef struct s_tab
 
 typedef struct s_philo
 {
-	unsigned short			is_dying;
-	int						left_fork_idx;
-	int						right_fork_idx;
-	int						is_right_handed;
+	unsigned short			left_fork_idx;
+	unsigned short			right_fork_idx;
+	unsigned short			is_right_handed;
+	unsigned short			single_philo_at_table;
 	unsigned short			id;
 	_Atomic t_action		state;
 	_Atomic long long		last_meal_time;
 	_Atomic unsigned short	nb_of_meals;
-	_Atomic unsigned short	satisfied;
+	_Atomic unsigned short	is_satisfied;
 	_Atomic time_t			start_time;
 }						t_philosopher;
 
@@ -92,7 +99,7 @@ void				free_everything(t_meta_data *data);
 t_table				*get_table(void);
 t_meta_data			*get_data(void);
 void				*philo_thread_callback(void *this_philo);
-void				*monitor_the_thinkers(void *thinkers);
+void				monitor_the_thinkers(void *thinkers);
 void				ft_lst_circular(t_node **head);
 void				ft_lstcircular_free(t_node **head);
 int					ft_atoi(const char *str);
@@ -107,6 +114,5 @@ void				lock_unlock_forks(t_philosopher *philo, int lock_unlock);
 void				philo_starves_alone(t_philosopher *philo);
 time_t				get_time(void);
 time_t				get_time_in_ms(t_philosopher *philo);
-void				check_if_philo_is_dying(t_philosopher *philo);
 
 #endif
