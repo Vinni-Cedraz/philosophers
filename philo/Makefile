@@ -1,5 +1,5 @@
 NAME	= philo
-FLAGS	= -Wall -Wextra -Werror -pthread -O3
+FLAGS	= -Wall -Wextra -Werror -pthread -O3 -I./
 
 OBJ_PATH = objs/
 

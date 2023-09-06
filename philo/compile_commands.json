@@ -1,1 +1,189 @@
-[]
+[
+ {
+  "directory": "/data/data/com.termux/files/home/philosophers/philo",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-O3",
+   "-I./",
+   "-c",
+   "allocate_meta_data.c",
+   "-o",
+   "objs/allocate_meta_data.o"
+  ],
+  "file": "allocate_meta_data.c"
+ },
+ {
+  "directory": "/data/data/com.termux/files/home/philosophers/philo",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-O3",
+   "-I./",
+   "-c",
+   "create_the_thinkers.c",
+   "-o",
+   "objs/create_the_thinkers.o"
+  ],
+  "file": "create_the_thinkers.c"
+ },
+ {
+  "directory": "/data/data/com.termux/files/home/philosophers/philo",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-O3",
+   "-I./",
+   "-c",
+   "philo_thread_callback.c",
+   "-o",
+   "objs/philo_thread_callback.o"
+  ],
+  "file": "philo_thread_callback.c"
+ },
+ {
+  "directory": "/data/data/com.termux/files/home/philosophers/philo",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-O3",
+   "-I./",
+   "-c",
+   "philosopher_actions.c",
+   "-o",
+   "objs/philosopher_actions.o"
+  ],
+  "file": "philosopher_actions.c"
+ },
+ {
+  "directory": "/data/data/com.termux/files/home/philosophers/philo",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-O3",
+   "-I./",
+   "-c",
+   "ft_atoi.c",
+   "-o",
+   "objs/ft_atoi.o"
+  ],
+  "file": "ft_atoi.c"
+ },
+ {
+  "directory": "/data/data/com.termux/files/home/philosophers/philo",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-O3",
+   "-I./",
+   "-c",
+   "ft_lst_circular.c",
+   "-o",
+   "objs/ft_lst_circular.o"
+  ],
+  "file": "ft_lst_circular.c"
+ },
+ {
+  "directory": "/data/data/com.termux/files/home/philosophers/philo",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-O3",
+   "-I./",
+   "-c",
+   "get_time_in_ms.c",
+   "-o",
+   "objs/get_time_in_ms.o"
+  ],
+  "file": "get_time_in_ms.c"
+ },
+ {
+  "directory": "/data/data/com.termux/files/home/philosophers/philo",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-O3",
+   "-I./",
+   "-c",
+   "monitor_the_thinkers.c",
+   "-o",
+   "objs/monitor_the_thinkers.o"
+  ],
+  "file": "monitor_the_thinkers.c"
+ },
+ {
+  "directory": "/data/data/com.termux/files/home/philosophers/philo",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-O3",
+   "-I./",
+   "-c",
+   "output_state.c",
+   "-o",
+   "objs/output_state.o"
+  ],
+  "file": "output_state.c"
+ },
+ {
+  "directory": "/data/data/com.termux/files/home/philosophers/philo",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-O3",
+   "-I./",
+   "-c",
+   "lock_unlock_forks.c",
+   "-o",
+   "objs/lock_unlock_forks.o"
+  ],
+  "file": "lock_unlock_forks.c"
+ },
+ {
+  "directory": "/data/data/com.termux/files/home/philosophers/philo",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pthread",
+   "-O3",
+   "-I./",
+   "-c",
+   "main.c",
+   "-o",
+   "objs/main.o"
+  ],
+  "file": "main.c"
+ }
+]
