@@ -12,45 +12,52 @@
 
 #include "philo.h"
 
-static short		all_are_satisfied(t_node *thinkers);
+static void	check_if_philo_is_dying(t_philosopher *philo);
+static void	check_satisfaction_of_all_thinkers(t_philosopher *this_thinker);
 
-void	*monitor_the_thinkers(void *thinkers)
+void	monitor_the_thinkers(void *thinkers)
 {
-	t_philosopher	*this_thinker;
+	t_philosopher				*this_thinker;
+	static const t_funct_ptr	check[2] = {
+		check_if_philo_is_dying, check_satisfaction_of_all_thinkers
+	};
 
-	while (TRUE)
+	while (FALSE == get_data()->stop_the_simulation)
 	{
 		this_thinker = ((t_node *)(thinkers))->philosopher;
-		check_if_philo_is_dying(this_thinker);
-		if (this_thinker->is_dying)
-		{
-			get_data()->stop_the_simulation = TRUE;
-			this_thinker->state = DEAD;
-			output_state(*this_thinker, get_time_in_ms(this_thinker));
-			return (NULL);
-		}
-		else if (this_thinker->satisfied)
-		{
-			if (all_are_satisfied(thinkers) == TRUE)
-				return (NULL);
-		}
+		check[this_thinker->is_satisfied](this_thinker);
 		thinkers = ((t_node *)(thinkers))->next;
 	}
 }
 
-static inline short	all_are_satisfied(t_node *thinkers)
+static inline void	check_if_philo_is_dying(t_philosopher *philo)
 {
-	t_philosopher	*this_thinker;
-	t_node			*head;
+	time_t	current_time;
+	time_t	time_to_die;
 
-	head = thinkers->next;
-	while (head != thinkers)
+	time_to_die = get_table()->time_to_die;
+	current_time = get_time_in_ms(philo);
+	if (current_time - philo->last_meal_time >= time_to_die)
+	{
+		philo->state = DEAD;
+		output_state(*philo, get_time_in_ms(philo));
+		get_data()->stop_the_simulation = TRUE;
+	}
+}
+
+static void	check_satisfaction_of_all_thinkers(t_philosopher *this_thinker)
+{
+	t_node	*head;
+	t_node	*tail;
+
+	head = get_data()->thinkers_circle;
+	tail = head->next;
+	while (head != tail)
 	{
 		this_thinker = head->philosopher;
-		if (this_thinker->satisfied != TRUE)
-			return (FALSE);
-		head = head->next;
+		if (this_thinker->is_satisfied != TRUE)
+			return ;
+		tail = tail->next;
 	}
 	get_data()->stop_the_simulation = TRUE;
-	return (TRUE);
 }

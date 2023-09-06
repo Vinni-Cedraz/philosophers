@@ -71,7 +71,6 @@ typedef struct s_tab
 
 typedef struct s_philo
 {
-	unsigned short			is_dying;
 	int						left_fork_idx;
 	int						right_fork_idx;
 	int						is_right_handed;
@@ -79,7 +78,7 @@ typedef struct s_philo
 	_Atomic t_action		state;
 	_Atomic long long		last_meal_time;
 	_Atomic unsigned short	nb_of_meals;
-	_Atomic unsigned short	satisfied;
+	_Atomic unsigned short	is_satisfied;
 	_Atomic time_t			start_time;
 }						t_philosopher;
 
@@ -92,7 +91,7 @@ void				free_everything(t_meta_data *data);
 t_table				*get_table(void);
 t_meta_data			*get_data(void);
 void				*philo_thread_callback(void *this_philo);
-void				*monitor_the_thinkers(void *thinkers);
+void				monitor_the_thinkers(void *thinkers);
 void				ft_lst_circular(t_node **head);
 void				ft_lstcircular_free(t_node **head);
 int					ft_atoi(const char *str);
@@ -107,6 +106,5 @@ void				lock_unlock_forks(t_philosopher *philo, int lock_unlock);
 void				philo_starves_alone(t_philosopher *philo);
 time_t				get_time(void);
 time_t				get_time_in_ms(t_philosopher *philo);
-void				check_if_philo_is_dying(t_philosopher *philo);
 
 #endif

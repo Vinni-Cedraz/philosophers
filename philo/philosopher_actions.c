@@ -22,7 +22,7 @@ inline void	philosopher_eat(t_philosopher *philo)
 {
 	if (philo->nb_of_meals++ == get_table()->times_each_must_eat)
 	{
-		philo->satisfied = TRUE;
+		philo->is_satisfied = TRUE;
 		return ;
 	}
 	lock_unlock_forks(philo, LOCK);
@@ -45,14 +45,4 @@ inline void	philo_starves_alone(t_philosopher *philo)
 {
 	usleep(get_table()->time_to_die * 1000);
 	philo->state = DEAD;
-}
-
-inline void	check_if_philo_is_dying(t_philosopher *philo)
-{
-	time_t	current_time;
-	time_t	time_to_die;
-
-	time_to_die = get_table()->time_to_die;
-	current_time = get_time_in_ms(philo);
-	philo->is_dying = current_time - philo->last_meal_time >= time_to_die;
 }
