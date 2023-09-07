@@ -22,18 +22,20 @@ void	create_the_thinkers(t_meta_data *d)
 	t_philosopher	*thinkers;
 	pthread_t		*threads;
 	t_philosopher	*this_thinker;
+	t_table			*table;
 
 	i = -1;
-	thinkers = d->philosophers;
+	table = d->table;
+	thinkers = table->philosophers;
 	threads = d->threads;
-	while (++i < d->table->nb_of_philos)
+	while (++i < table->nb_of_philos)
 	{
 		this_thinker = init_this_thinker(&thinkers[i]);
 		pthread_create(&threads[i], 0, philo_thread_callback, this_thinker);
 	}
 	i = -1;
-	get_data()->thinkers_circle = init_circle(thinkers);
-	monitor_the_thinkers(get_data()->thinkers_circle);
+	table->thinkers_circle = init_circle(thinkers);
+	monitor_the_thinkers(table->thinkers_circle);
 }
 
 static inline t_philosopher	*init_this_thinker(t_philosopher *this_thinker)
@@ -43,7 +45,7 @@ static inline t_philosopher	*init_this_thinker(t_philosopher *this_thinker)
 	memset(this_thinker, 0, sizeof(*this_thinker));
 	this_thinker->id = ++call_counter;
 	this_thinker->state = THINK;
-	this_thinker->last_meal_time = get_data()->start_time;
+	this_thinker->last_meal_time = get_time(); 
 	this_thinker->is_right_handed = this_thinker->id & 1;
 	if (get_table()->nb_of_philos == 1)
 		this_thinker->single_philo_at_table = TRUE;

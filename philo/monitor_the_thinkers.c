@@ -35,7 +35,7 @@ static inline void	check_if_philo_is_dying(t_philosopher *philo)
 	time_t	current_time;
 	time_t	time_to_die;
 
-	time_to_die = get_table()->time_to_die;
+	time_to_die = get_data()->time_to_die;
 	current_time = get_time_in_ms(philo);
 	if (current_time - philo->last_meal_time >= time_to_die)
 	{
@@ -50,7 +50,7 @@ static void	check_satisfaction_of_all_thinkers(t_philosopher *this_thinker)
 	t_node	*head;
 	t_node	*tail;
 
-	head = get_data()->thinkers_circle;
+	head = get_data()->table->thinkers_circle;
 	tail = head->next;
 	while (head != tail)
 	{

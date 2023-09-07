@@ -25,25 +25,25 @@ t_meta_data	*allocate_meta_data(char **av, int ac)
 	init_table(d, av, ac);
 	nb_of_philos = d->table->nb_of_philos;
 	d->threads = malloc(sizeof(pthread_t) * nb_of_philos);
-	d->philosophers = malloc(sizeof(t_philosopher) * nb_of_philos);
+	d->table->philosophers = malloc(sizeof(t_philosopher) * nb_of_philos);
 	d->table->forks = malloc(sizeof(pthread_mutex_t) * nb_of_philos);
 	i = -1;
 	while (++i < d->table->nb_of_philos)
 		pthread_mutex_init(&d->table->forks[i], NULL);
-	pthread_mutex_init(&d->table->stdout_mutex, NULL);
+	pthread_mutex_init(&d->stdout_mutex, NULL);
 	return (d);
 }
 
 static void	init_table(t_meta_data *d, char **av, int ac)
 {
 	d->table->nb_of_philos = ft_atoi(av[1]);
-	d->table->time_to_die = ft_atoi(av[2]) + TOLERANCE;
-	d->table->time_to_eat = ft_atoi(av[3]);
-	d->table->time_to_sleep = ft_atoi(av[4]);
+	d->time_to_eat = ft_atoi(av[3]);
+	d->time_to_die = ft_atoi(av[2]) + TOLERANCE;
+	d->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 6)
-		d->table->times_each_must_eat = ft_atoi(av[5]);
+		d->times_each_must_eat = ft_atoi(av[5]);
 	else
-		d->table->times_each_must_eat = -1;
+		d->times_each_must_eat = -1;
 }
 
 void	free_everything(t_meta_data *data)
@@ -53,11 +53,11 @@ void	free_everything(t_meta_data *data)
 	i = -1;
 	while (++i < data->table->nb_of_philos)
 		pthread_mutex_destroy(&data->table->forks[i]);
-	pthread_mutex_destroy(&data->table->stdout_mutex);
+	pthread_mutex_destroy(&data->stdout_mutex);
 	free(data->table->forks);
-	free(data->philosophers);
+	free(data->table->philosophers);
 	free(data->threads);
-	ft_lstcircular_free(&data->thinkers_circle);
+	ft_lstcircular_free(&data->table->thinkers_circle);
 }
 
 t_meta_data	*get_data(void)

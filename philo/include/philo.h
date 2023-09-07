@@ -28,9 +28,9 @@
 # define TOLERANCE 5
 
 # define E_MSG \
-	"Error: wrong number of arguments\nUsage: [number of philosopher           \
-  	s] [time to die] [time to eat] [time to sleep] and                         \
-  	optional -> [number of times each philosopher must eat]\n"
+	"Error: wrong number of arguments\nUsage: [number of philosopher\
+s] [time to die] [time to eat] [time to sleep] and \
+optional -> [number of times each philosopher must eat]"
 
 # define THINKING "%ldms %d is thinking\n"
 # define EATING "%ldms %d is eating\n"
@@ -58,22 +58,21 @@ typedef enum e_action
 typedef struct s_meta_data
 {
 	t_table				*table;
-	t_philosopher		*philosophers;
-	t_node				*thinkers_circle;
 	pthread_t			*threads;
+	pthread_mutex_t		stdout_mutex;
+	time_t				time_to_die;
+	unsigned short		time_to_eat;
+	unsigned short		time_to_sleep;
+	_Atomic short		times_each_must_eat;
 	_Atomic short		stop_the_simulation;
-	_Atomic time_t		start_time;
 }						t_meta_data;
 
 typedef struct s_tab
 {
 	unsigned short		nb_of_philos;
-	time_t				time_to_die;
-	unsigned short		time_to_eat;
-	unsigned short		time_to_sleep;
 	pthread_mutex_t		*forks;
-	_Atomic short		times_each_must_eat;
-	pthread_mutex_t		stdout_mutex;
+	t_philosopher		*philosophers;
+	t_node				*thinkers_circle;
 }						t_table;
 
 typedef struct s_philo
