@@ -6,16 +6,16 @@
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 08:34:53 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/09/07 17:39:06 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/08/31 08:48:13 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static inline t_bool	invalid_arg(int ac, char **av);
-static inline t_bool	has_negative_nbrs(char **av);
-static inline t_bool	not_a_digit(char **av);
+static t_bool	invalid_arg(int ac, char **av);
+static t_bool	has_negative_nbrs(char **av);
 static inline t_bool	digit(char c);
+static inline t_bool	not_a_digit(char **av);
 
 int	main(int ac, char **av)
 {

@@ -6,7 +6,7 @@
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 08:33:54 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/09/07 17:40:27 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:44:56 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define TOLERANCE 3
 # define TRUE 1
 # define FALSE 0
-# define CATCH 1
-# define PUT_DOWN 0
+# define LOCK 1
+# define UNLOCK 0
 # define LEFT 0
 # define RIGHT 1
+# define TOLERANCE 8
 # define MAX_NB_OF_PHILOS 200
 
 # define E_MSG \
-	"Error: wrong arguments\nUsage: [number of philosopher\
+	"Error: wrong number of arguments\nUsage: [number of philosopher\
 s] [time to die] [time to eat] [time to sleep] and \
 optional -> [number of times each philosopher must eat]"
 
@@ -41,7 +41,6 @@ optional -> [number of times each philosopher must eat]"
 typedef struct s_tab	t_table;
 typedef struct s_philo	t_philosopher;
 typedef void			(*t_funct_ptr)(t_philosopher *);
-
 typedef unsigned short	t_bool;
 
 typedef struct s_node
@@ -64,31 +63,31 @@ typedef struct s_meta_data
 	pthread_t			threads[MAX_NB_OF_PHILOS];
 	pthread_mutex_t		stdout_mutex;
 	time_t				time_to_die;
-	t_bool				time_to_eat;
-	t_bool				time_to_sleep;
+	unsigned short		time_to_eat;
+	unsigned short		time_to_sleep;
 	_Atomic short		times_each_must_eat;
 	_Atomic short		stop_the_simulation;
 }						t_meta_data;
 
 typedef struct s_tab
 {
-	t_bool				nb_of_philos;
+	unsigned short		nb_of_philos;
 	pthread_mutex_t		forks[MAX_NB_OF_PHILOS];
 	t_node				*thinkers_circle;
 }						t_table;
 
 typedef struct s_philo
 {
-	t_bool				left_fork_idx;
-	t_bool				right_fork_idx;
-	t_bool				is_right_handed;
-	t_bool				single_philo_at_table;
-	t_bool				id;
-	_Atomic t_action	state;
-	_Atomic long long	last_meal_time;
-	_Atomic t_bool		nb_of_meals;
-	_Atomic t_bool		is_satisfied;
-	_Atomic time_t		start_time;
+	unsigned short			left_fork_idx;
+	unsigned short			right_fork_idx;
+	unsigned short			is_right_handed;
+	unsigned short			single_philo_at_table;
+	unsigned short			id;
+	_Atomic t_action		state;
+	_Atomic long long		last_meal_time;
+	_Atomic unsigned short	nb_of_meals;
+	_Atomic unsigned short	is_satisfied;
+	_Atomic time_t			start_time;
 }						t_philosopher;
 
 _Atomic long long	*get_start_time(void);
@@ -110,10 +109,9 @@ void				philosopher_think(t_philosopher *philo);
 void				philosopher_sleep(t_philosopher *philo);
 void				philosopher_dead(t_philosopher *philo);
 void				philosopher_satisfied(t_philosopher *philo);
-void				catch_or_put_down_forks(t_philosopher *philo, int catch);
+void				lock_unlock_forks(t_philosopher *philo, int lock_unlock);
 void				philo_starves_alone(t_philosopher *philo);
 time_t				get_time(void);
 time_t				get_time_in_ms(t_philosopher *philo);
-t_bool				am_i_dying(t_philosopher *philo, int eat);
 
 #endif

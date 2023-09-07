@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_thread_callback.c                            :+:      :+:    :+:   */
+/*   philosopher_thread_callback.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 09:11:07 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/09/07 17:45:29 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/09/05 09:12:20 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,17 @@ inline void	*philo_thread_callback(void *this_philo)
 		philosopher_think,
 		philosopher_eat,
 		philosopher_sleep,
-		philosopher_dead,
+		NULL,
 	};
 
 	philo = (t_philosopher *)this_philo;
 	philo->start_time = get_time();
-	while (!philo->is_satisfied && !get_data()->stop_the_simulation)
+	while (philo->is_satisfied == FALSE)
 	{
-		action[philo->state](philo);
+		if (action[philo->state])
+			action[philo->state](philo);
+		if (get_data()->stop_the_simulation == TRUE)
+			break ;
 	}
 	return (NULL);
 }
