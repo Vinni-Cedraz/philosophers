@@ -25,7 +25,8 @@
 # define UNLOCK 0
 # define LEFT 0
 # define RIGHT 1
-# define TOLERANCE 5
+# define TOLERANCE 2
+# define MAX_NB_OF_PHILOS 200
 
 # define E_MSG \
 	"Error: wrong number of arguments\nUsage: [number of philosopher\
@@ -58,7 +59,7 @@ typedef enum e_action
 typedef struct s_meta_data
 {
 	t_table				*table;
-	pthread_t			*threads;
+	pthread_t			threads[MAX_NB_OF_PHILOS];
 	pthread_mutex_t		stdout_mutex;
 	time_t				time_to_die;
 	unsigned short		time_to_eat;
@@ -70,8 +71,7 @@ typedef struct s_meta_data
 typedef struct s_tab
 {
 	unsigned short		nb_of_philos;
-	pthread_mutex_t		*forks;
-	t_philosopher		*philosophers;
+	pthread_mutex_t		forks[MAX_NB_OF_PHILOS];
 	t_node				*thinkers_circle;
 }						t_table;
 

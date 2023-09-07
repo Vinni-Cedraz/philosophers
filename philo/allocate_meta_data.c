@@ -18,15 +18,10 @@ t_meta_data	*allocate_meta_data(char **av, int ac)
 {
 	int			i;
 	t_meta_data	*d;
-	int			nb_of_philos;
 
 	d = get_data();
 	d->table = get_table();
 	init_table(d, av, ac);
-	nb_of_philos = d->table->nb_of_philos;
-	d->threads = malloc(sizeof(pthread_t) * nb_of_philos);
-	d->table->philosophers = malloc(sizeof(t_philosopher) * nb_of_philos);
-	d->table->forks = malloc(sizeof(pthread_mutex_t) * nb_of_philos);
 	i = -1;
 	while (++i < d->table->nb_of_philos)
 		pthread_mutex_init(&d->table->forks[i], NULL);
@@ -54,9 +49,6 @@ void	free_everything(t_meta_data *data)
 	while (++i < data->table->nb_of_philos)
 		pthread_mutex_destroy(&data->table->forks[i]);
 	pthread_mutex_destroy(&data->stdout_mutex);
-	free(data->table->forks);
-	free(data->table->philosophers);
-	free(data->threads);
 	ft_lstcircular_free(&data->table->thinkers_circle);
 }
 
