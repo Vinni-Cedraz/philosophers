@@ -19,17 +19,17 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+# define TOLERANCE 3
 # define TRUE 1
 # define FALSE 0
-# define LOCK 1
-# define UNLOCK 0
+# define CATCH 1
+# define PUT_DOWN 0
 # define LEFT 0
 # define RIGHT 1
-# define TOLERANCE 2
 # define MAX_NB_OF_PHILOS 200
 
 # define E_MSG \
-	"Error: wrong number of arguments\nUsage: [number of philosopher\
+	"Error: wrong arguments\nUsage: [number of philosopher\
 s] [time to die] [time to eat] [time to sleep] and \
 optional -> [number of times each philosopher must eat]"
 
@@ -90,7 +90,6 @@ typedef struct s_philo
 }						t_philosopher;
 
 _Atomic long long	*get_start_time(void);
-unsigned short		invalid_arg(int ac);
 t_meta_data			*allocate_meta_data(char **av, int ac);
 void				create_the_thinkers(t_meta_data *d);
 void				output_state(t_philosopher thinker, long timestamp);
@@ -109,7 +108,7 @@ void				philosopher_think(t_philosopher *philo);
 void				philosopher_sleep(t_philosopher *philo);
 void				philosopher_dead(t_philosopher *philo);
 void				philosopher_satisfied(t_philosopher *philo);
-void				lock_unlock_forks(t_philosopher *philo, int lock_unlock);
+void				catch_or_put_down_forks(t_philosopher *philo, int catch);
 void				philo_starves_alone(t_philosopher *philo);
 time_t				get_time(void);
 time_t				get_time_in_ms(t_philosopher *philo);

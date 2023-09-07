@@ -32,14 +32,8 @@ void	monitor_the_thinkers(void *thinkers)
 
 static inline void	check_if_philo_is_dying(t_philosopher *philo)
 {
-	time_t	current_time;
-	time_t	time_to_die;
-
-	time_to_die = get_data()->time_to_die;
-	current_time = get_time_in_ms(philo);
-	if (current_time - philo->last_meal_time >= time_to_die)
+	if (philo->state == DEAD)
 	{
-		philo->state = DEAD;
 		output_state(*philo, get_time_in_ms(philo));
 		get_data()->stop_the_simulation = TRUE;
 	}
