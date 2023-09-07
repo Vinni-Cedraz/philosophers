@@ -6,16 +6,16 @@
 /*   By: vcedraz- <vcedraz-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 08:34:53 by vcedraz-          #+#    #+#             */
-/*   Updated: 2023/08/31 08:48:13 by vcedraz-         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:39:06 by vcedraz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static inline unsigned short	invalid_arg(int ac, char **av);
-static inline unsigned short	has_negative_nbrs(char **av);
-static inline unsigned short	not_a_digit(char **av);
-static inline unsigned short	digit(char c);
+static inline t_bool	invalid_arg(int ac, char **av);
+static inline t_bool	has_negative_nbrs(char **av);
+static inline t_bool	not_a_digit(char **av);
+static inline t_bool	digit(char c);
 
 int	main(int ac, char **av)
 {
@@ -32,7 +32,7 @@ int	main(int ac, char **av)
 	free_everything(d);
 }
 
-static inline unsigned short	invalid_arg(int ac, char **av)
+static inline t_bool	invalid_arg(int ac, char **av)
 {
 	if (ac < 5 || ac > 6 || not_a_digit(av) || has_negative_nbrs(av))
 	{
@@ -42,10 +42,10 @@ static inline unsigned short	invalid_arg(int ac, char **av)
 	return (FALSE);
 }
 
-static inline unsigned short	has_negative_nbrs(char **av)
+static inline t_bool	has_negative_nbrs(char **av)
 {
-	unsigned short	i;
-	unsigned short	j;
+	t_bool	i;
+	t_bool	j;
 
 	i = 0;
 	while (av[++i])
@@ -60,10 +60,10 @@ static inline unsigned short	has_negative_nbrs(char **av)
 	return (FALSE);
 }
 
-static inline unsigned short	not_a_digit(char **av)
+static inline t_bool	not_a_digit(char **av)
 {
-	unsigned short	i;
-	unsigned short	j;
+	t_bool	i;
+	t_bool	j;
 
 	i = 0;
 	while (av[++i])
@@ -78,7 +78,7 @@ static inline unsigned short	not_a_digit(char **av)
 	return (FALSE);
 }
 
-static inline unsigned short	digit(char c)
+static inline t_bool	digit(char c)
 {
 	return (c <= '9' && c >= '0');
 }

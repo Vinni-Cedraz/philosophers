@@ -1,5 +1,5 @@
 NAME	= philo
-FLAGS	= -Wall -Wextra -Werror -pthread -g3 -Iinclude/
+FLAGS	= -Wall -Wextra -Werror -pthread -g3 -Iinclude/ -fsanitize=thread
 
 OBJ_PATH = objs/
 
@@ -16,6 +16,7 @@ SRCS = allocate_meta_data.c \
 	   monitor_the_thinkers.c \
 	   output_state.c \
 	   lock_unlock_forks.c \
+	   am_i_dying.c \
 	   main.c \
 
 OBJS = $(SRCS:%.c=$(OBJ_PATH)%.o)
