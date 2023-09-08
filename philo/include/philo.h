@@ -25,12 +25,12 @@
 # define UNLOCK 0
 # define LEFT 0
 # define RIGHT 1
-# define TOLERANCE 5
+# define TOLERANCE 3
 
-# define E_MSG \
-	"Error: wrong number of arguments\nUsage: [number of philosopher\
-s] [time to die] [time to eat] [time to sleep] and \
-optional -> [number of times each philosopher must eat]"
+# define ERROR_MSG "Error: wrong arguments\n"
+# define ARG_MSG_1 "Expected arguments: number_of_philosophers"
+# define ARG_MSG_2 " time_to_die time_to_eat time_to_sleep and optional ->"
+# define ARG_MSG_3 " number_of_times_each_philosopher_must_eat"
 
 # define THINKING "%ldms %d is thinking\n"
 # define EATING "%ldms %d is eating\n"
@@ -40,6 +40,7 @@ optional -> [number of times each philosopher must eat]"
 typedef struct s_tab	t_table;
 typedef struct s_philo	t_philosopher;
 typedef void			(*t_funct_ptr)(t_philosopher *);
+typedef unsigned short	t_bool;
 
 typedef struct s_node
 {
@@ -90,7 +91,6 @@ typedef struct s_philo
 }						t_philosopher;
 
 _Atomic long long	*get_start_time(void);
-unsigned short		invalid_arg(int ac);
 t_meta_data			*allocate_meta_data(char **av, int ac);
 void				create_the_thinkers(t_meta_data *d);
 void				output_state(t_philosopher thinker, long timestamp);
@@ -107,7 +107,7 @@ t_node				*ft_lstnew(void *content);
 void				philosopher_eat(t_philosopher *philo);
 void				philosopher_think(t_philosopher *philo);
 void				philosopher_sleep(t_philosopher *philo);
-void				philosopher_dead(t_philosopher *philo);
+void				philosopher_die(t_philosopher *philo);
 void				philosopher_satisfied(t_philosopher *philo);
 void				lock_unlock_forks(t_philosopher *philo, int lock_unlock);
 void				philo_starves_alone(t_philosopher *philo);

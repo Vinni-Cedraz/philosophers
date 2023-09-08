@@ -24,13 +24,3 @@ inline void	output_state(t_philosopher thinker, long timestamp_in_ms)
 	printf(msgs[thinker.state], timestamp_in_ms, thinker.id);
 	pthread_mutex_unlock(&get_data()->stdout_mutex);
 }
-
-inline unsigned short	invalid_arg(int ac)
-{
-	if (ac < 5 || ac > 6)
-	{
-		printf("%s\n", E_MSG);
-		return (TRUE);
-	}
-	return (FALSE);
-}
