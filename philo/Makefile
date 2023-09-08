@@ -1,5 +1,5 @@
 NAME	= philo
-FLAGS	= -Wall -Wextra -Werror -pthread -O3 -Iinclude/ -fsanitize=thread
+FLAGS	= -Wall -Wextra -Werror -pthread -O3 -Iinclude/
 
 OBJ_PATH = objs/
 

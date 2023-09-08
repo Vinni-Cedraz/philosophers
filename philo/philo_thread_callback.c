@@ -16,20 +16,12 @@ inline void	*philo_thread_callback(void *this_philo)
 {
 	t_philosopher				*philo;
 	static const t_funct_ptr	action[4] = {
-		philosopher_think,
-		philosopher_eat,
-		philosopher_sleep,
-		NULL,
+		philosopher_think, philosopher_eat, philosopher_sleep, philosopher_die,
 	};
 
 	philo = (t_philosopher *)this_philo;
 	philo->start_time = get_time();
-	while (philo->is_satisfied == FALSE)
-	{
-		if (action[philo->state])
-			action[philo->state](philo);
-		if (get_data()->stop_the_simulation == TRUE)
-			break ;
-	}
+	while (!philo->is_satisfied && !get_data()->stop_the_simulation)
+		action[philo->state](philo);
 	return (NULL);
 }
