@@ -35,7 +35,6 @@ void	create_the_thinkers(t_meta_data *d)
 	}
 	i = -1;
 	table->thinkers_circle = init_circle(thinkers);
-	monitor_the_thinkers(table->thinkers_circle);
 }
 
 static inline t_philosopher	*init_this_thinker(t_philosopher *this_thinker)

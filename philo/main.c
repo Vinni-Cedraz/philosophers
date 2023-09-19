@@ -22,11 +22,12 @@ int	main(int ac, char **av)
 	t_meta_data	*d;
 	int			i;
 
+	i = -1;
 	if (invalid_arg(ac, av))
 		return (1);
 	d = allocate_meta_data(av, ac);
 	create_the_thinkers(d);
-	i = -1;
+	monitor_the_thinkers(d->table->thinkers_circle);
 	while (++i < d->table->nb_of_philos)
 		pthread_join(d->threads[i], NULL);
 	free_everything(d);
