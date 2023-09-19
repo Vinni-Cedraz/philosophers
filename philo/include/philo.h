@@ -64,7 +64,7 @@ typedef struct s_meta_data
 	time_t				time_to_die;
 	unsigned short		time_to_eat;
 	unsigned short		time_to_sleep;
-	_Atomic short		times_each_must_eat;
+	_Atomic short		limit_of_meals;
 	_Atomic short		stop_the_simulation;
 }						t_meta_data;
 
@@ -113,5 +113,7 @@ void				lock_unlock_forks(t_philosopher *philo, int lock_unlock);
 void				philo_starves_alone(t_philosopher *philo);
 time_t				get_time(void);
 time_t				get_time_in_ms(t_philosopher *philo);
+void				advance_philo_to_next_state(t_philosopher *philo);
+t_bool				this_philo_is_hungry(t_philosopher *philo);
 
 #endif

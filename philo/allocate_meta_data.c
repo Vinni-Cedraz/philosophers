@@ -40,9 +40,9 @@ static void	init_table(t_meta_data *d, char **av, int ac)
 	d->time_to_eat = ft_atoi(av[3]);
 	d->time_to_die = ft_atoi(av[2]) + TOLERANCE;
 	d->time_to_sleep = ft_atoi(av[4]);
-	d->times_each_must_eat = -1;
+	d->limit_of_meals = -1;
 	if (ac == 6)
-		d->times_each_must_eat = ft_atoi(av[5]);
+		d->limit_of_meals = ft_atoi(av[5]);
 }
 
 void	free_everything(t_meta_data *data)
