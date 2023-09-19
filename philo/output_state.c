@@ -18,8 +18,6 @@ inline void	output_state(t_philosopher thinker, long timestamp_in_ms)
 		THINKING, EATING, SLEEPING, DIED
 	};
 
-	if (get_data()->stop_the_simulation)
-		return ;
 	pthread_mutex_lock(&get_data()->stdout_mutex);
 	printf(msgs[thinker.state], timestamp_in_ms, thinker.id);
 	pthread_mutex_unlock(&get_data()->stdout_mutex);
