@@ -34,7 +34,7 @@
 
 # define THINKING "%ldms %d is thinking\n"
 # define EATING "%ldms %d is eating\n"
-# define SLEEPING "%ldms %d sleep\n"
+# define SLEEPING "%ldms %d is sleeping\n"
 # define DIED "%ldms %d died\n"
 
 typedef struct s_tab	t_table;

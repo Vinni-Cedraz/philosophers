@@ -26,8 +26,9 @@ inline void	philosopher_eat(t_philosopher *philo)
 		return ;
 	}
 	lock_unlock_forks(philo, LOCK);
-	if (philo->state != DEAD)
-		output_state(*philo, get_time_in_ms(philo));
+	if (get_data()->stop_the_simulation || philo->state == DEAD)
+		return (lock_unlock_forks(philo, UNLOCK));
+	output_state(*philo, get_time_in_ms(philo));
 	philo->last_meal_time = get_time_in_ms(philo);
 	usleep(get_data()->time_to_eat * 1000);
 	lock_unlock_forks(philo, UNLOCK);
