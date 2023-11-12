@@ -30,20 +30,6 @@ void	create_the_thinkers(t_meta_data *d)
 	d->table->thinkers_circle = init_circle(thinkers);
 }
 
-static inline void	start_thread_of_each_thinker(t_philosopher *thinkers)
-{
-	const t_meta_data		*d = get_data();
-	const int				nb_of_philos = get_data()->table->nb_of_philos;
-	int						i;
-
-	i = -1;
-	while (++i < nb_of_philos)
-	{
-		thinkers[i].start_time = get_time();
-		pthread_create(&d->threads[i], 0, philo_thread_callback, &thinkers[i]);
-	}
-}
-
 static inline t_philosopher	*init_this_thinker(t_philosopher *this_thinker)
 {
 	static int	call_counter;
@@ -58,6 +44,17 @@ static inline t_philosopher	*init_this_thinker(t_philosopher *this_thinker)
 	this_thinker->left_fork_idx = this_thinker->id - 1;
 	this_thinker->right_fork_idx = this_thinker->id % get_table()->nb_of_philos;
 	return (this_thinker);
+}
+
+static inline void	start_thread_of_each_thinker(t_philosopher *thinkers)
+{
+	const t_meta_data		*d = get_data();
+	const int				nb_of_philos = get_data()->table->nb_of_philos;
+	int						i;
+
+	i = -1;
+	while (++i < nb_of_philos)
+		pthread_create(&d->threads[i], 0, philo_thread_callback, &thinkers[i]);
 }
 
 static inline void	*init_circle(t_philosopher *thinkers)

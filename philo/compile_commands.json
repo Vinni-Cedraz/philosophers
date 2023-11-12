@@ -1,6 +1,6 @@
 [
  {
-  "directory": "/home/vcedraz-/philosophers/philo",
+  "directory": "/nfs/homes/vcedraz-/philosophers/philo",
   "arguments": [
    "cc",
    "-Wall",
@@ -9,7 +9,6 @@
    "-pthread",
    "-g3",
    "-Iinclude/",
-   "-fsanitize=thread",
    "-c",
    "allocate_meta_data.c",
    "-o",
@@ -18,7 +17,7 @@
   "file": "allocate_meta_data.c"
  },
  {
-  "directory": "/home/vcedraz-/philosophers/philo",
+  "directory": "/nfs/homes/vcedraz-/philosophers/philo",
   "arguments": [
    "cc",
    "-Wall",
@@ -27,7 +26,6 @@
    "-pthread",
    "-g3",
    "-Iinclude/",
-   "-fsanitize=thread",
    "-c",
    "create_the_thinkers.c",
    "-o",
@@ -36,7 +34,7 @@
   "file": "create_the_thinkers.c"
  },
  {
-  "directory": "/home/vcedraz-/philosophers/philo",
+  "directory": "/nfs/homes/vcedraz-/philosophers/philo",
   "arguments": [
    "cc",
    "-Wall",
@@ -45,7 +43,6 @@
    "-pthread",
    "-g3",
    "-Iinclude/",
-   "-fsanitize=thread",
    "-c",
    "philo_thread_callback.c",
    "-o",
@@ -54,7 +51,7 @@
   "file": "philo_thread_callback.c"
  },
  {
-  "directory": "/home/vcedraz-/philosophers/philo",
+  "directory": "/nfs/homes/vcedraz-/philosophers/philo",
   "arguments": [
    "cc",
    "-Wall",
@@ -63,7 +60,6 @@
    "-pthread",
    "-g3",
    "-Iinclude/",
-   "-fsanitize=thread",
    "-c",
    "philosopher_actions.c",
    "-o",
@@ -72,7 +68,7 @@
   "file": "philosopher_actions.c"
  },
  {
-  "directory": "/home/vcedraz-/philosophers/philo",
+  "directory": "/nfs/homes/vcedraz-/philosophers/philo",
   "arguments": [
    "cc",
    "-Wall",
@@ -81,7 +77,6 @@
    "-pthread",
    "-g3",
    "-Iinclude/",
-   "-fsanitize=thread",
    "-c",
    "ft_atoi.c",
    "-o",
@@ -90,7 +85,7 @@
   "file": "ft_atoi.c"
  },
  {
-  "directory": "/home/vcedraz-/philosophers/philo",
+  "directory": "/nfs/homes/vcedraz-/philosophers/philo",
   "arguments": [
    "cc",
    "-Wall",
@@ -99,7 +94,6 @@
    "-pthread",
    "-g3",
    "-Iinclude/",
-   "-fsanitize=thread",
    "-c",
    "ft_lst_circular.c",
    "-o",
@@ -108,7 +102,7 @@
   "file": "ft_lst_circular.c"
  },
  {
-  "directory": "/home/vcedraz-/philosophers/philo",
+  "directory": "/nfs/homes/vcedraz-/philosophers/philo",
   "arguments": [
    "cc",
    "-Wall",
@@ -117,7 +111,6 @@
    "-pthread",
    "-g3",
    "-Iinclude/",
-   "-fsanitize=thread",
    "-c",
    "get_time_in_ms.c",
    "-o",
@@ -126,7 +119,7 @@
   "file": "get_time_in_ms.c"
  },
  {
-  "directory": "/home/vcedraz-/philosophers/philo",
+  "directory": "/nfs/homes/vcedraz-/philosophers/philo",
   "arguments": [
    "cc",
    "-Wall",
@@ -135,7 +128,6 @@
    "-pthread",
    "-g3",
    "-Iinclude/",
-   "-fsanitize=thread",
    "-c",
    "monitor_the_thinkers.c",
    "-o",
@@ -144,7 +136,7 @@
   "file": "monitor_the_thinkers.c"
  },
  {
-  "directory": "/home/vcedraz-/philosophers/philo",
+  "directory": "/nfs/homes/vcedraz-/philosophers/philo",
   "arguments": [
    "cc",
    "-Wall",
@@ -153,7 +145,6 @@
    "-pthread",
    "-g3",
    "-Iinclude/",
-   "-fsanitize=thread",
    "-c",
    "output_state.c",
    "-o",
@@ -162,7 +153,7 @@
   "file": "output_state.c"
  },
  {
-  "directory": "/home/vcedraz-/philosophers/philo",
+  "directory": "/nfs/homes/vcedraz-/philosophers/philo",
   "arguments": [
    "cc",
    "-Wall",
@@ -171,7 +162,6 @@
    "-pthread",
    "-g3",
    "-Iinclude/",
-   "-fsanitize=thread",
    "-c",
    "lock_unlock_forks.c",
    "-o",
@@ -180,7 +170,7 @@
   "file": "lock_unlock_forks.c"
  },
  {
-  "directory": "/home/vcedraz-/philosophers/philo",
+  "directory": "/nfs/homes/vcedraz-/philosophers/philo",
   "arguments": [
    "cc",
    "-Wall",
@@ -189,7 +179,6 @@
    "-pthread",
    "-g3",
    "-Iinclude/",
-   "-fsanitize=thread",
    "-c",
    "main.c",
    "-o",

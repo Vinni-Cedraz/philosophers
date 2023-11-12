@@ -41,14 +41,15 @@ inline void	philosopher_sleep(t_philosopher *philo)
 
 inline void	philo_starves_alone(t_philosopher *philo)
 {
+	if (philo->state == DEAD)
+		return ;
 	usleep(get_data()->time_to_die * 1000);
 	philosopher_die(philo);
-	output_state(*philo, get_time_in_ms(philo));
-	get_data()->stop_the_simulation = TRUE;
 }
 
 inline void	philosopher_die(t_philosopher *philo)
 {
 	philo->state = DEAD;
-	return ;
+	get_data()->stop_the_simulation = TRUE;
+	output_state(*philo, get_time_in_ms(philo));
 }
